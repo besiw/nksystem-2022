@@ -113,35 +113,37 @@ function Project(props) {
 					header: 'min-h-72 h-72 sm:h-136 sm:min-h-136'
 				}}
 				header={<ProjectHeader />}
-				contentToolbar={
-					<Tabs
-						value={tabValue}
-						onChange={handleTabChange}
-						indicatorColor="primary"
-						textColor="primary"
-						variant="scrollable"
-						scrollButtons="auto"
-						classes={{ root: 'w-full h-64' }}
-					>
-						<Tab className="h-64" label="Contact Info" />
-						<Tab className="h-64" label="Project Info" />
-						<Tab className="h-64" label="Services" />
-					</Tabs>
-				}
+
 				content={
-					<div className="p-16 sm:p-24 max-w-2xl">
-						<div className={tabValue !== 0 ? 'hidden' : ''}>
-							<CustomerInfo />
-						</div>
+					<>
+						<Tabs
+							value={tabValue}
+							onChange={handleTabChange}
+							indicatorColor="primary"
+							textColor="primary"
+							variant="scrollable"
+							scrollButtons="auto"
+							classes={{ root: 'w-full h-64' }}
+						>
+							<Tab className="h-64" label="Contact Info" />
+							<Tab className="h-64" label="Project Info" />
+							<Tab className="h-64" label="Services" />
+						</Tabs>
+						<div className="p-16 sm:p-24">
+							<div className={tabValue !== 0 ? 'hidden' : ''}>
+								<CustomerInfo />
+							</div>
 
-						<div className={tabValue !== 1 ? 'hidden' : ''}>
-							<ProjectInfo />
-						</div>
+							<div className={tabValue !== 1 ? 'hidden' : ''}>
+								<ProjectInfo />
+							</div>
 
-						<div className={tabValue !== 2 ? 'hidden' : ''}>
-							<PricingTab />
+							<div className={tabValue !== 2 ? 'hidden' : ''}>
+								<PricingTab />
+							</div>
 						</div>
-					</div>
+					</>
+					
 				}
 				innerScroll
 			/>

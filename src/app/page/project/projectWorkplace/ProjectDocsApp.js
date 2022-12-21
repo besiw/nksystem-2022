@@ -184,7 +184,7 @@ const ProjectDocsApp = props => {
 						/>
 					}
 					content={
-						<div className="grid grid-cols-12 w-full">
+						<div className="grid grid-cols-12 w-full p-12">
 							<div className="col-start-1 col-end-9 mr-8">
 								<Typography variant="h5" className="ml-4 mb-4">
 									Prosjektdokumenter
