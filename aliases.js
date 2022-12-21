@@ -8,6 +8,8 @@ const aliases = (prefix = `src`) => ({
   'app/configs': `${prefix}/app/configs`,
   'app/theme-layouts': `${prefix}/app/theme-layouts`,
   'app/AppContext': `${prefix}/app/AppContext`,
+  'app':`${prefix}/app`,
+  'api':`${prefix}/api`,
 });
 
 module.exports = aliases;

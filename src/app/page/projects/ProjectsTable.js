@@ -1,20 +1,20 @@
 import FuseScrollbars from '@fuse/core/FuseScrollbars';
 import _ from '@lodash';
-import Checkbox from '@material-ui/core/Checkbox';
-import Icon from '@material-ui/core/Icon';
-import IconButton from '@material-ui/core/IconButton';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import Typography from '@material-ui/core/Typography';
+import Checkbox from '@mui/material/Checkbox';
+import Icon from '@mui/material/Icon';
+import IconButton from '@mui/material/IconButton';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import Typography from '@mui/material/Typography';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { useEffect, useState, useRef } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import withRouter from '@fuse/core/withRouter';
 import FuseLoading from '@fuse/core/FuseLoading';
 import slugs from 'app/strings';
 import { selectProjects, removeProject, archiveProject, setProjectsSearchText } from './store/projectsSlice';
@@ -79,7 +79,7 @@ function ProductsTable(props) {
 
 	function handleClick(item) {
 		dispatch(setProjectsSearchText({ target: { value: '' } }));
-		props.history.push(`/${slugs.slug_project}/${item.id}/workplace`);
+		props.navigate(`/${slugs.slug_project}/${item.id}/workplace`);
 	}
 
 	function handleCheck(event, id) {
@@ -178,6 +178,7 @@ function ProductsTable(props) {
 										tabIndex={-1}
 										key={n.id}
 										selected={isSelected}
+										onClick={(event) => handleClick(n)}
 									>
 										<TableCell className="w-40 md:w-64 text-center" padding="none">
 											<Checkbox

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import Typography from '@material-ui/core/Typography';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
+import Typography from '@mui/material/Typography';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
 import allRequests, { requestNBK } from 'api/allRequests';
 import Email from './Email';
 

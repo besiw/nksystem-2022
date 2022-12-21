@@ -1,10 +1,10 @@
-import Fab from '@material-ui/core/Fab';
-import Icon from '@material-ui/core/Icon';
-import IconButton from '@material-ui/core/IconButton';
-import { useTheme, makeStyles } from '@material-ui/core/styles';
+import Fab from '@mui/material/Fab';
+import Icon from '@mui/material/Icon';
+import IconButton from '@mui/material/IconButton';
+import { useTheme, makeStyles } from '@mui/material/styles';
 
-import Tooltip from '@material-ui/core/Tooltip';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import Tooltip from '@mui/material/Tooltip';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { navbarToggle, navbarToggleMobile } from 'app/store/fuse/navbarSlice';
 import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';

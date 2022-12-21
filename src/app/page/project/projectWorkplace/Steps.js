@@ -1,22 +1,25 @@
-import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
+import MenuItem from '@mui/material/MenuItem';
+import TextField from '@mui/material/TextField';
 import { Link, useParams } from 'react-router-dom';
 
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Icon from '@material-ui/core/Icon';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Icon from '@mui/material/Icon';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import { motion } from 'framer-motion';
 import slugs from 'app/strings';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
 import { useState } from 'react';
 import shorid from 'shortid';
 import transferRequests from './Workflow/Transfer/requests';
 
 export const CustomListItem = ({ children }) => (
-	<ListItem className="py-20 px-0 sm:px-8 bg-white rounded-12 mb-12 cursor-pointer flex justify-between">
+	<ListItem 
+	className="px-40 py-12 group shadow border-b"
+	sx={{ bgcolor: 'background.paper' }}
+	>
 		{children}
 	</ListItem>
 );
@@ -102,7 +105,7 @@ const Step = ({ projectId, workflow, updateprojectState, handleStepChange, selec
 											variant="outlined"
 											onClick={() => handleTransfer({ step: item, key: path, projectId })}
 										>
-											<Typography className="text-12 border-grey-400">Overføre</Typography>
+											<Typography className="text-12">Overføre</Typography>
 										</Button>
 									</CustomListItem>
 								) : (

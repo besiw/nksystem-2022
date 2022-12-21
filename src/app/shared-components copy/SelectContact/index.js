@@ -8,14 +8,14 @@ import {
 	contactTableConfig,
 	addContact
 } from 'app/contacts/store/contactSlice';
-import Icon from '@material-ui/core/Icon';
-import IconButton from '@material-ui/core/IconButton';
+import Icon from '@mui/material/Icon';
+import IconButton from '@mui/material/IconButton';
 import ReactSelect from 'react-select';
 import allRequests, { requestNBK } from 'api/allRequests';
 import appStrings from 'app/strings';
-import TextField from '@material-ui/core/TextField';
-import Fab from '@material-ui/core/Fab';
-import Button from '@material-ui/core/Button';
+import TextField from '@mui/material/TextField';
+import Fab from '@mui/material/Fab';
+import Button from '@mui/material/Button';
 import { showMessage } from 'app/store/fuse/messageSlice';
 
 const initialContact = {

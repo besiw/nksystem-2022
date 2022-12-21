@@ -1,7 +1,7 @@
 import { lazy, useState } from 'react';
+const CompanyProfile  = lazy(() => import('./CompanyProfile'));
+const  AllCompaniesApp= lazy(() => import('./AllCompaniesApp'))
 
-import { Redirect } from 'react-router-dom';
-import appStrings from 'app/strings';
 
 const CompanyAppConfig = {
 	settings: {
@@ -10,15 +10,15 @@ const CompanyAppConfig = {
 	routes: [
 		{
 			path: `/company/:companyId`,
-			component: lazy(() => import('./CompanyProfile'))
+			element: <CompanyProfile />
 		},
 		{
 			path: `/company`,
-			component: lazy(() => import('./AllCompaniesApp'))
+			element: <AllCompaniesApp/>
 		},
 		{
 			path: `/`,
-			component: lazy(() => import('./AllCompaniesApp'))
+			element:<AllCompaniesApp/>
 		}
 	]
 };

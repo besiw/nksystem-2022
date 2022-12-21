@@ -1,5 +1,7 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+const BuildingSupplierApp =  React.lazy(() => import('./BuildingSupplierApp'));
+
 
 const BuildingSuppliersAppConfig = {
 	settings: {
@@ -10,11 +12,11 @@ const BuildingSuppliersAppConfig = {
 	routes: [
 		{
 			path: '/building-supplier',
-			component: React.lazy(() => import('./BuildingSupplierApp'))
+			element: <BuildingSupplierApp />
 		},
 		{
 			path: '/building-supplier/new',
-			component: () => <Redirect to="/building-suppliers" />
+			element: <Navigate to="/building-suppliers" />
 		}
 	]
 };

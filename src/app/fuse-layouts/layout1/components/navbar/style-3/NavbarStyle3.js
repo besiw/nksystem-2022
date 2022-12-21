@@ -1,6 +1,6 @@
-import Hidden from '@material-ui/core/Hidden';
-import { makeStyles } from '@material-ui/core/styles';
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import Hidden from '@mui/material/Hidden';
+import { makeStyles } from '@mui/styles';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import clsx from 'clsx';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';

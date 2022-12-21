@@ -1,5 +1,5 @@
 import FuseScrollbars from '@fuse/core/FuseScrollbars';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
 import Navigation from 'app/fuse-layouts/shared-components/Navigation';
 import clsx from 'clsx';
 import { memo } from 'react';

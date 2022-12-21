@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import FuseUtils from '@fuse/utils';
 import slugs from 'app/strings';
 import ExampleConfig from 'app/main/example/ExampleConfig';
@@ -31,7 +31,7 @@ const routes = [
 	...FuseUtils.generateRoutesFromConfigs(routeConfigs),
 	{
 		path: '/',
-		component: () => <Redirect to={`/${slugs.slug_projects}`} />
+		element: <Navigate  to={`/${slugs.slug_projects}`} />
 	}
 ];
 

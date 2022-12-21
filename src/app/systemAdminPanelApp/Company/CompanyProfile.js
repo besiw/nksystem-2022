@@ -1,35 +1,19 @@
 /* import { useForm } from '@fuse/hooks'; */
 import { useForm, Controller } from 'react-hook-form';
-import FuseAnimate from '@fuse/core/FuseAnimate';
+
 import FusePageSimple from '@fuse/core/FusePageSimple';
 import allRequests, { requestNBK } from 'api/allRequests';
-import FuseUtils from '@fuse/utils/FuseUtils';
-import AppBar from '@material-ui/core/AppBar';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import Icon from '@material-ui/core/Icon';
-import IconButton from '@material-ui/core/IconButton';
-import TextField from '@material-ui/core/TextField';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-/* import FormControlLabel from '@material-ui/core/FormControlLabel' */
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 import InputGroup from 'app/shared-components/InputGroup';
-import appStrings from 'app/strings';
-import { hideMessage, showMessage } from 'app/store/fuse/messageSlice';
+import {  showMessage } from 'app/store/fuse/messageSlice';
 import { useParams, Link } from 'react-router-dom';
-import { useDeepCompareEffect } from '@fuse/hooks';
-import Switch from '@material-ui/core/Switch';
+import Switch from '@mui/material/Switch';
 import shortid from 'shortid';
 import StepDialog from 'app/page/project/projectWorkplace/StepDialog';
 import history from '@history';
-import reducer, { getEntities, addEntity, updateEntity } from './store/companySlice';
 import UserDialog from './Dialog/UserDialog';
 import FolderDialog from './Dialog/FolderDialog';
 import EmailDialog from './Dialog/EmailDialog';
@@ -260,16 +244,11 @@ function CompanyProfile(props) {
 					<div className="flex flex-1 items-center justify-between p-4 sm:p-24 relative">
 						<div className="flex flex-shrink items-center sm:w-224">
 							<div className="flex items-center">
-								<FuseAnimate animation="transition.expandIn" delay={300}>
-									<Icon className="text-32">account_box</Icon>
-								</FuseAnimate>
-								<FuseAnimate animation="transition.slideLeftIn" delay={300}>
-									<Link to="/company">
+								<Link to="/company">
 										<Typography variant="h6" className="mx-12 hidden sm:flex">
 											{companyName}
 										</Typography>
-									</Link>
-								</FuseAnimate>
+								</Link>
 							</div>
 						</div>
 					</div>

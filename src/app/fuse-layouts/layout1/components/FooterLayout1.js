@@ -1,8 +1,8 @@
-import AppBar from '@material-ui/core/AppBar';
-import { ThemeProvider } from '@material-ui/core/styles';
-import Toolbar from '@material-ui/core/Toolbar';
+import AppBar from '@mui/material/AppBar';
+import { ThemeProvider } from '@mui/material/styles';
+import Toolbar from '@mui/material/Toolbar';
 import { memo } from 'react';
-import Typography from '@material-ui/core/Typography';
+import Typography from '@mui/material/Typography';
 import { useSelector } from 'react-redux';
 import { selectFooterTheme } from 'app/store/fuse/settingsSlice';
 import clsx from 'clsx';

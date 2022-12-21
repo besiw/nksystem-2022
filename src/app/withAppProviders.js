@@ -12,6 +12,7 @@ import store from './store';
 import AppContext from './AppContext';
 
 const withAppProviders = (Component) => (props) => {
+  console.log(routes)
   const WrapperComponent = () => (
     <AppContext.Provider
       value={{

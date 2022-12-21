@@ -1,4 +1,6 @@
 import React, { lazy } from 'react';
+const UploadDocs = lazy(() => import('./UploadDocs'))
+const UpdateDeviation = lazy(() => import('./UpdateDeviation'))
 
 const LoginPageConfig = {
 	settings: {
@@ -9,12 +11,11 @@ const LoginPageConfig = {
 	routes: [
 		{
 			path: '/external/UploadDocument',
-			component: lazy(() => import('./UploadDocs'))
+			element: <UploadDocs/>
 		},
 		{
 			path: '/external/UpdateDeviation',
-			component: lazy(() => import('./UpdateDeviation'))
-		}
+			element: <UpdateDeviation />		}
 	]
 };
 

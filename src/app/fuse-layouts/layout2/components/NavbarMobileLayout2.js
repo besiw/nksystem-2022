@@ -1,8 +1,8 @@
 import FuseScrollbars from '@fuse/core/FuseScrollbars';
-import AppBar from '@material-ui/core/AppBar';
-import Hidden from '@material-ui/core/Hidden';
-import Icon from '@material-ui/core/Icon';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import AppBar from '@mui/material/AppBar';
+import Hidden from '@mui/material/Hidden';
+import Icon from '@mui/material/Icon';
+import { makeStyles, useTheme } from '@mui/material/styles';
 import Logo from 'app/fuse-layouts/shared-components/Logo';
 import NavbarToggleButton from 'app/fuse-layouts/shared-components/NavbarToggleButton';
 import Navigation from 'app/fuse-layouts/shared-components/Navigation';

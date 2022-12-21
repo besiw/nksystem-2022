@@ -6,9 +6,9 @@ import PDFViewer from 'app/shared-components/PDFViewer';
 import { MyDropzone } from 'app/shared-components/UploadFile/Popup';
 import { hideMessage, showMessage } from 'app/store/fuse/messageSlice';
 import axios from 'axios';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
-import Button from '@material-ui/core/Button';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
+import Button from '@mui/material/Button';
 
 const urlExpression = 'https?://(www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)';
 const urlRegex = new RegExp(urlExpression);

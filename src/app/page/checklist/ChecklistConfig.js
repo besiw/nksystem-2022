@@ -1,5 +1,6 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+const ChecklistApp = React.lazy(() => import('./ChecklistApp'));
 
 const ChecklistsAppConfig = {
 	settings: {
@@ -10,11 +11,11 @@ const ChecklistsAppConfig = {
 	routes: [
 		{
 			path: '/checklists',
-			component: React.lazy(() => import('./ChecklistApp'))
+			element: <ChecklistApp />
 		},
 		{
 			path: '/checklists/new',
-			component: () => <Redirect to="/ChecklistApp'" />
+			element: < Navigate to="/ChecklistApp"/>
 		}
 	]
 };

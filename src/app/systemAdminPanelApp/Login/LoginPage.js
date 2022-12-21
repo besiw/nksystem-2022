@@ -1,14 +1,14 @@
 import FuseAnimate from '@fuse/core/FuseAnimate';
 import { useForm } from '@fuse/hooks';
 
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { makeStyles } from '@material-ui/core/styles';
-import { darken } from '@material-ui/core/styles/colorManipulator';
-import Typography from '@material-ui/core/Typography';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Checkbox from '@mui/material/Checkbox';
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import { makeStyles } from '@mui/styles';
+import { darken } from '@mui/material/styles/colorManipulator';
+import Typography from '@mui/material/Typography';
 import clsx from 'clsx';
 import React from 'react';
 import { Link } from 'react-router-dom';

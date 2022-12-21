@@ -1,19 +1,13 @@
 import { TextFieldFormsy } from '@fuse/core/formsy';
-import Button from '@material-ui/core/Button';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Icon from '@material-ui/core/Icon';
-import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Typography from '@material-ui/core/Typography';
+import Button from '@mui/material/Button';
+import Icon from '@mui/material/Icon';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+
 import Formsy from 'formsy-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { submitLogin } from 'app/auth/store/loginSlice';
-import { Link } from 'react-router-dom';
-import Snackbar from '@material-ui/core/Snackbar';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
+import { submitLogin } from './store/loginSlice';
 
 function JWTLoginTab(props) {
 	const dispatch = useDispatch();

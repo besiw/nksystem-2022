@@ -20,9 +20,11 @@ function AuthProvider({ children }) {
       /**
        * Sign in and retrieve user data with stored token
        */
+      console.log('Sign in and retrieve user data with stored token')
       jwtService
         .signInWithToken()
         .then((user) => {
+          console.log(user)
           success(user, 'Signed in with JWT');
         })
         .catch((error) => {
@@ -31,6 +33,7 @@ function AuthProvider({ children }) {
     });
 
     jwtService.on('onLogin', (user) => {
+      console.log(user)
       success(user, 'Signed in');
     });
 
@@ -53,6 +56,7 @@ function AuthProvider({ children }) {
     jwtService.init();
 
     function success(user, message) {
+      console.log(user)
       if (message) {
         dispatch(showMessage({ message }));
       }

@@ -1,7 +1,7 @@
-import Hidden from '@material-ui/core/Hidden';
-import Paper from '@material-ui/core/Paper';
-import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import Hidden from '@mui/material/Hidden';
+import Paper from '@mui/material/Paper';
+import { makeStyles, ThemeProvider } from '@mui/material/styles';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import NavbarMobileLayout2 from 'app/fuse-layouts/layout2/components/NavbarMobileLayout2';
 import NavbarToggleFab from 'app/fuse-layouts/shared-components/NavbarToggleFab';
 import { navbarCloseMobile } from 'app/store/fuse/navbarSlice';

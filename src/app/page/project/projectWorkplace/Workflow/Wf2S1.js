@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import Button from '@material-ui/core/Button';
+import Button from '@mui/material/Button';
 import allRequests, { requestNBK } from 'api/allRequests';
 import MailCompose from 'app/shared-components/MailCompose';
 import { hideMessage, showMessage } from 'app/store/fuse/messageSlice';
 import { useForm, Controller } from 'react-hook-form';
 import InputGroup from 'app/shared-components/InputGroup';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 
 const inputKeys = [
 	{

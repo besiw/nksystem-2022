@@ -1,43 +1,44 @@
-import Hidden from '@material-ui/core/Hidden';
-import Icon from '@material-ui/core/Icon';
-import IconButton from '@material-ui/core/Button';
+import Hidden from '@mui/material/Hidden';
+import Icon from '@mui/material/Icon';
+import IconButton from '@mui/material/Button';
 import { Link } from 'react-router-dom';
-import MenuItem from '@material-ui/core/MenuItem';
-import Tooltip from '@material-ui/core/Tooltip';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
+import MenuItem from '@mui/material/MenuItem';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
 import { motion } from 'framer-motion';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import appStrings from 'app/strings';
-import { removeProject, archiveProject } from '../store/projectSlice';
 
 const WorkplaceHeader = ({ id, title, backToSteps, value, handleWorkflowChange, workflowsArray }) => {
 	const dispatch = useDispatch();
+	const backLink =
+	id === 'new' ? `/${appStrings.slug_projects}` : `/${appStrings.slug_project}/${id}/workplace`;
+	const backText = id === 'new' ? appStrings.projects : 'Dashboard';
+	console.log(backLink)
 	return (
 		<div className="flex flex-1 items-center justify-between p-8 sm:p-24 relative">
-			<div className="flex flex-col flex-shrink py-12 sm:w-224">
-				{/*                 <Hidden lgUp>
-                    <IconButton
-                        onClick={ev => pageLayout.current.toggleLeftSidebar()}
-                        aria-label="open left sidebar"
-                    >
-                        <Icon>menu</Icon>
-                    </IconButton>
-                </Hidden> */}
-
-				<Link className="flex items-center text-white" to={`/${appStrings.slug_project}/${id}/workplace/home`}>
+			<div className="flex flex-col items-start max-w-full min-w-0">
+				<motion.div initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1, transition: { delay: 0.3 } }}>
 					<Typography
-						onClick={() => backToSteps(null)}
-						initial={{ x: -20 }}
-						animate={{ x: 0, transition: { delay: 0.2 } }}
-						delay={300}
-						color="textSecondary"
-						className="text-16 md:text-24 mx-12 font-semibold whitespace-nowrap cursor-pointer"
+						className="flex items-center sm:mb-12"
+						component={Link}
+						role="button"
+						to={backLink}
+						color="inherit"
 					>
-						{title}
+						<Icon className="text-20">arrow_back</Icon>
+						<span className="hidden sm:flex mx-4 font-medium">{backText}</span>
 					</Typography>
-				</Link>
-				<div className="flex">
+				</motion.div>
+
+				<div className="flex items-center max-w-full">
+					<div className="flex flex-col min-w-0 mx-8 sm:mc-16">
+						<motion.div initial={{ x: -20 }} animate={{ x: 0, transition: { delay: 0.3 } }}>
+							<Typography className="text-16 sm:text-20 truncate font-semibold">
+								{id === 'new' ? 'New project' : title}
+							</Typography>
+							<div className="flex">
 					<Link to={`/${appStrings.slug_project}/${id}/config`} className="ml-12">
 						<IconButton>
 							<Icon color={true ? 'action' : 'disabled'}>create</Icon>
@@ -62,6 +63,9 @@ const WorkplaceHeader = ({ id, title, backToSteps, value, handleWorkflowChange, 
 						<Icon color={true ? 'action' : 'disabled'}>archive</Icon>
 						<Typography className="text-12 ml-4">{appStrings.archive}</Typography>
 					</IconButton>
+				</div>
+						</motion.div>
+					</div>
 				</div>
 			</div>
 			<div className="flex items-center justify-end">

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+const EmailTemplateApp = React.lazy(() => import('./EmailTemplateApp'))
+import { Navigate } from 'react-router-dom';
 
 const BuildingSuppliersAppConfig = {
 	settings: {
@@ -10,11 +11,10 @@ const BuildingSuppliersAppConfig = {
 	routes: [
 		{
 			path: '/email-template',
-			component: React.lazy(() => import('./EmailTemplateApp'))
-		},
+			element: <EmailTemplateApp />		},
 		{
 			path: '/email-template/new',
-			component: () => <Redirect to="/building-suppliers" />
+			element: <Navigate to="/building-suppliers" />
 		}
 	]
 };

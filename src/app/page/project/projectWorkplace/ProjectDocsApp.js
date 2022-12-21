@@ -7,14 +7,14 @@ import { useEffect, useState, useRef, lazy } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDeepCompareEffect } from '@fuse/hooks';
 import slugs from 'app/strings';
-import { Link, useParams, useHistory, useLocation } from 'react-router-dom';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
-import Typography from '@material-ui/core/Typography';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
+import Typography from '@mui/material/Typography';
 /* import { CustomListItemText } from 'app/page/project/projectWorkplace/Steps'; */
-import ListItem from '@material-ui/core/ListItem';
+import ListItem from '@mui/material/ListItem';
 import MailAttachment from 'app/shared-components/UploadFile/Popup';
-import List from '@material-ui/core/List';
+import List from '@mui/material/List';
 import shortid from 'shortid';
 import allRequests, { requestNBK } from 'api/allRequests';
 import { hideMessage, showMessage } from 'app/store/fuse/messageSlice';
@@ -38,7 +38,8 @@ const ProjectDocsApp = props => {
 	const dispatch = useDispatch();
 	const routeParams = useParams();
 	const pageLayout = useRef(null);
-	const history = useHistory();
+	const navigate = useNavigate()
+
 	const projectInfo = useSelector(({ projectApp }) => {
 		return projectApp.project && projectApp.project.info;
 	});
@@ -62,7 +63,7 @@ const ProjectDocsApp = props => {
 		}
 	}, [dispatch, projectId, workflows[workflowId]]);
 	const backToSteps = () => {
-		history.push(`/${slugs.slug_project}/${projectId}/workplace`);
+		navigate(`/${slugs.slug_project}/${projectId}/workplace`);
 	};
 
 	const handleWorkflowChange = ev => {

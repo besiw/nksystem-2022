@@ -1,7 +1,7 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 import appStrings from 'app/strings';
 
+const ContactApp = React.lazy(() => import('./ContactApp'));
 const ContactsAppConfig = {
 	settings: {
 		layout: {
@@ -11,7 +11,7 @@ const ContactsAppConfig = {
 	routes: [
 		{
 			path: `/${appStrings.contacts}`,
-			component: React.lazy(() => import('./ContactApp'))
+			element: <ContactApp/>
 		}
 	]
 };

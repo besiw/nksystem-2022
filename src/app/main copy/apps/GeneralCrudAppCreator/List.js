@@ -1,9 +1,8 @@
-import FuseAnimate from '@fuse/core/FuseAnimate';
 import FuseUtils from '@fuse/utils';
-import Avatar from '@material-ui/core/Avatar';
-import Icon from '@material-ui/core/Icon';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
+import Avatar from '@mui/material/Avatar';
+import Icon from '@mui/material/Icon';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import appStrings from 'app/strings';
@@ -88,7 +87,6 @@ function List(props) {
 	}
 
 	return (
-		<FuseAnimate animation="transition.slideUpIn" delay={300}>
 			<Table
 				columns={columns}
 				data={filteredData}
@@ -98,7 +96,6 @@ function List(props) {
 					}
 				}}
 			/>
-		</FuseAnimate>
 	);
 }
 

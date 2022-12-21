@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import ListItem from '@material-ui/core/ListItem';
-import Icon from '@material-ui/core/Icon';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
+import ListItem from '@mui/material/ListItem';
+import Icon from '@mui/material/Icon';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
 
 const ChecklistItem = ({ id, title, checklistId, updateItem, deleteItem }) => {
 	const [edit, setEdit] = useState(id === null);

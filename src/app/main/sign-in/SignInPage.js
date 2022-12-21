@@ -21,7 +21,7 @@ import jwtService from '../../auth/services/jwtService';
  * Form Validation Schema
  */
 const schema = yup.object().shape({
-  email: yup.string().email('You must enter a valid email').required('You must enter a email'),
+  email: yup.string().required('You must enter a email'),
   password: yup
     .string()
     .required('Please enter your password.')
@@ -52,6 +52,7 @@ function SignInPage() {
     jwtService
       .signInWithEmailAndPassword(email, password)
       .then((user) => {
+        console.log(user)
         // No need to do anything, user data will be set at app/auth/AuthContext
       })
       .catch((_errors) => {

@@ -1,5 +1,5 @@
 import FuseScrollbars from '@fuse/core/FuseScrollbars';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
 import Logo from 'app/fuse-layouts/shared-components/Logo';
 import LogoImg from 'app/img/NBK-LOGO-white.png';
 import Navigation from 'app/fuse-layouts/shared-components/Navigation';

@@ -1,5 +1,5 @@
-import { createMuiTheme } from '@material-ui/core/styles';
-import { getContrastRatio } from '@material-ui/core/styles/colorManipulator';
+import { createMuiTheme } from '@mui/material/styles';
+import { getContrastRatio } from '@mui/material/styles/colorManipulator';
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 import _ from '@lodash';
 import {

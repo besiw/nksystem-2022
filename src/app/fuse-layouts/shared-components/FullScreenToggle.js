@@ -1,8 +1,8 @@
-import Icon from '@material-ui/core/Icon';
-import Tooltip from '@material-ui/core/Tooltip';
+import Icon from '@mui/material/Icon';
+import Tooltip from '@mui/material/Tooltip';
 import clsx from 'clsx';
 import { useLayoutEffect, useEffect, useState } from 'react';
-import IconButton from '@material-ui/core/IconButton';
+import IconButton from '@mui/material/IconButton';
 
 const useEnhancedEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 

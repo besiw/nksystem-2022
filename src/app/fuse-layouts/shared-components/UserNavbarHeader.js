@@ -1,7 +1,7 @@
-import AppBar from '@material-ui/core/AppBar';
-import Avatar from '@material-ui/core/Avatar';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import AppBar from '@mui/material/AppBar';
+import Avatar from '@mui/material/Avatar';
+import { makeStyles } from '@mui/styles';
+import Typography from '@mui/material/Typography';
 import clsx from 'clsx';
 import { useSelector } from 'react-redux';
 

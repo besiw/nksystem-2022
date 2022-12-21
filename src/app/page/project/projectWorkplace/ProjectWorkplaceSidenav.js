@@ -1,25 +1,25 @@
 import { useState, useEffect } from 'react';
 import NavLinkAdapter from '@fuse/core/NavLinkAdapter';
-import Divider from '@material-ui/core/Divider';
-import Icon from '@material-ui/core/Icon';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import MenuItem from '@material-ui/core/MenuItem';
-import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import Divider from '@mui/material/Divider';
+import Icon from '@mui/material/Icon';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader';
+import MenuItem from '@mui/material/MenuItem';
+import Paper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import { makeStyles } from '@mui/styles';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import allRequests, { requestNBK } from 'api/allRequests';
 import ContactCard from 'app/shared-components/ContactCard';
 import appStrings from 'app/strings';
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import DialogWrapper from 'app/page/project/projectWorkplace/StepDialog';
-import Button from '@material-ui/core/Button';
+import Button from '@mui/material/Button';
 import { saveProject, removeProject, createProject } from '../store/projectSlice';
 
 const useStyles = makeStyles(theme => ({
@@ -57,7 +57,8 @@ const useStyles = makeStyles(theme => ({
 const SidebarContent = props => {
 	const dispatch = useDispatch();
 	const classes = useStyles(props);
-	const history = useHistory();
+	const navigate = useNavigate()
+
 	const { defaultWorkflow, workflows, project } = props;
 	const {
 		address,
@@ -86,11 +87,11 @@ const SidebarContent = props => {
 		setDescription(e.target.value);
 	};
 	const updateDescription = () => {
-		dispatch(saveProject({ data: { description: projectDescription }, history }));
+		dispatch(saveProject({ data: { description: projectDescription }, navigate }));
 		setIsDialogOpen(false);
 	};
 	return (
-		<div className="hidden sm:block col-start-9 col-end-13 p-0 lg:p-24 lg:ltr:pr-4 lg:rtl:pl-4 px-12 h-full bg-white rounded-lg">
+		<div className="hidden sm:block col-start-9 col-end-13 p-0 lg:p-24 lg:ltr:pr-4 lg:rtl:pl-4 px-24 h-full">
 			<div className="py-16 flex flex-col">
 				<div className="w-full flex justify-end my-4">
 					<Link to={`/${appStrings.slug_project}/${id}/config`} className="ml-12">
@@ -98,9 +99,6 @@ const SidebarContent = props => {
 						Edit
 					</Link>
 				</div>
-				<Typography variant="h6">
-					{address}, {postNo} {poststed}
-				</Typography>
 
 				<div className="w-full flex justify-between items-center  my-4">
 					<Typography variant="subtitle1">Opprettet: </Typography>

@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createEntityAdapter, createSelector } from '@reduxjs/toolkit';
 import axios from 'axios';
 import allRequests, { requestNBK } from 'api/allRequests';
 import appStrings from 'app/strings';
@@ -117,6 +117,8 @@ export const removeContact = createAsyncThunk(`${name}/remove${name}`, async (da
 	});
 	dispatch(getContacts());
 });
+
+
 
 const contactAdapter = createEntityAdapter({});
 

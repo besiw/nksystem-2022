@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import allRequests, { requestNBK } from 'api/allRequests';
 import MailCompose from 'app/shared-components/MailCompose';
 import { hideMessage, showMessage } from 'app/store/fuse/messageSlice';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
 const Email = props => {
 	const dispatch = useDispatch();

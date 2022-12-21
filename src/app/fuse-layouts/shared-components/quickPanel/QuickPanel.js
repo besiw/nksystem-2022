@@ -1,7 +1,7 @@
 import FuseScrollbars from '@fuse/core/FuseScrollbars';
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import { makeStyles } from '@mui/styles';
+import Typography from '@mui/material/Typography';
 import withReducer from 'app/store/withReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { memo } from 'react';

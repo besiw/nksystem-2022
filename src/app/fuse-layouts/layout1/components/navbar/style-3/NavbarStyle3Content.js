@@ -1,7 +1,7 @@
 import FuseScrollbars from '@fuse/core/FuseScrollbars';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import { ThemeProvider, makeStyles, useTheme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+import { ThemeProvider, makeStyles, useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import clsx from 'clsx';
 import { memo, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

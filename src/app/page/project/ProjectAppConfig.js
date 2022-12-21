@@ -2,18 +2,20 @@ import { lazy } from 'react';
 
 import slugs from 'app/strings';
 
+const ProjectApp = lazy(() => import('./ProjectApp'));
+
 const ProjectAppConfig = {
 	settings: {
 		layout: {}
 	},
 	routes: [
 		{
-			path: `/${slugs.slug_project}/:projectId`,
-			component: lazy(() => import('./ProjectApp'))
+			path: `/${slugs.slug_project}/:projectId/*`,
+			element: <ProjectApp />
 		},
 		{
 			path: `/${slugs.slug_project}`,
-			component: lazy(() => import('./ProjectApp'))
+			element: <ProjectApp />
 		}
 	]
 };

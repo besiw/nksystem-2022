@@ -1,7 +1,7 @@
-import AppBar from '@material-ui/core/AppBar';
-import { ThemeProvider } from '@material-ui/core/styles';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import AppBar from '@mui/material/AppBar';
+import { ThemeProvider } from '@mui/material/styles';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
 import clsx from 'clsx';
 import { memo } from 'react';
 import { useSelector } from 'react-redux';

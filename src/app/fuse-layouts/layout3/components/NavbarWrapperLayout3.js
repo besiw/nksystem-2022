@@ -1,6 +1,6 @@
-import Hidden from '@material-ui/core/Hidden';
-import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import Hidden from '@mui/material/Hidden';
+import { makeStyles, ThemeProvider } from '@mui/material/styles';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import NavbarToggleFab from 'app/fuse-layouts/shared-components//NavbarToggleFab';
 import { navbarCloseMobile } from 'app/store/fuse/navbarSlice';
 import clsx from 'clsx';

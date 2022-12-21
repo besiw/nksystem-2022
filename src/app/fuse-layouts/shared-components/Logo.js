@@ -1,5 +1,5 @@
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@mui/styles';
+import Typography from '@mui/material/Typography';
 import clsx from 'clsx';
 import NKSLogo from 'app/shared-components/Logo';
 import LogoImg from 'app/img/NBK-LOGO-white.png';

@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import allRequests, { requestNBK } from 'api/allRequests';
-import Button from '@material-ui/core/Button';
+import Button from '@mui/material/Button';
 import MailCompose from 'app/shared-components/MailCompose';
 import { hideMessage, showMessage } from 'app/store/fuse/messageSlice';
 import ReactSelect from 'react-select';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Typography from '@material-ui/core/Typography';
-import Icon from '@material-ui/core/Icon';
-import IconButton from '@material-ui/core/IconButton';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Typography from '@mui/material/Typography';
+import Icon from '@mui/material/Icon';
+import IconButton from '@mui/material/IconButton';
 import Dialog from './Wf1S6-checklist-dialog';
 
 const Workflow = props => {

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
-
+import { Navigate } from 'react-router-dom';
+const DocTypeApp = React.lazy(() => import('./DocTypeApp'))
 const DocTypeAppConfig = {
 	settings: {
 		layout: {
@@ -10,11 +10,11 @@ const DocTypeAppConfig = {
 	routes: [
 		{
 			path: '/doctype',
-			component: React.lazy(() => import('./DocTypeApp'))
+			element: <DocTypeApp/>
 		},
 		{
 			path: '/doctype/new',
-			component: () => <Redirect to="/doctype" />
+			element: <Navigate to="/doctype"/>
 		}
 	]
 };

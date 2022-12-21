@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import allRequests, { requestNBK } from 'api/allRequests';
 import ContactCard from 'app/shared-components/ContactCard';
-import Typography from '@material-ui/core/Typography';
+import Typography from '@mui/material/Typography';
 import Wf1S12 from './Wf1S6';
 
 const Step1Email = props => {

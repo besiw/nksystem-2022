@@ -1,9 +1,9 @@
-import FormControl from '@material-ui/core/FormControl';
-import TextField from '@material-ui/core/TextField';
-import { Autocomplete } from '@material-ui/lab';
+import FormControl from '@mui/material/FormControl';
+import TextField from '@mui/material/TextField';
+import { Autocomplete } from '@mui/lab';
 import { useFormContext, Controller } from 'react-hook-form';
 import ContactForm from 'app/shared-components/SelectContact';
-import Typography from '@material-ui/core/Typography';
+import Typography from '@mui/material/Typography';
 
 function BasicInfoTab(props) {
 	const methods = useFormContext();

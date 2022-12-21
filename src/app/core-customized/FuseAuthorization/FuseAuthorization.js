@@ -1,106 +1,109 @@
 import FuseUtils from '@fuse/utils';
 import AppContext from 'app/AppContext';
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { matchRoutes } from 'react-router-config';
-import { withRouter } from 'react-router-dom';
+import { Component } from 'react';
+import { matchRoutes } from 'react-router-dom';
+import withRouter from '@fuse/core/withRouter';
+import history from '@history';
 import Login from 'app/page/Login/LoginPage';
-import External from 'app/page/external/ExternalLayout';
+/*import External from 'app/page/external/ExternalLayout';*/
+
+const External = ()=>{
+	return (<div></div>)
+}
+
+let loginRedirectUrl = null;
 
 class FuseAuthorization extends Component {
-	constructor(props, context) {
-		super(props);
-		const { routes } = context;
-		this.state = {
-			accessGranted: false,
-			external: false,
-			routes
+  constructor(props, context) {
+    super(props);
+    const { routes } = context;
+    this.state = {
+      accessGranted: false,
+      routes,
+	    external: false,
+    };
+    this.defaultLoginRedirectUrl = props.loginRedirectUrl || '/';
+  }
+
+  componentDidMount() {
+    if (!this.state.accessGranted) {
+      this.redirectRoute();
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextState.accessGranted !== this.state.accessGranted;
+  }
+
+  componentDidUpdate() {
+    if (!this.state.accessGranted) {
+      this.redirectRoute();
+    }
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    console.log(props)
+    console.log(state)
+	const { location, userRole } = props;
+	const { pathname } = location;
+  console.log(matchRoutes(state.routes, pathname))
+  const result = matchRoutes(state.routes, pathname)
+	const matched = result?result[0]:result;
+	let hasPermission = false;
+	let external = false;
+	if (userRole && userRole.length > 0 && ['admin'].includes(userRole[0])) {
+		hasPermission = true;
+	}
+
+	if (pathname.startsWith('/external')) {
+		hasPermission = true;
+		external = true;
+	}
+
+  console.log(matched)
+	if (pathname) {
+		return {
+			accessGranted: matched ? hasPermission : false,
+			external
 		};
 	}
+	return null;
+}
 
-	componentDidMount() {
-		if (!this.state.accessGranted) {
-			this.redirectRoute();
-		}
-	}
+  redirectRoute() {
+    const { location, userRole } = this.props;
+    const { pathname } = location;
+    const redirectUrl = loginRedirectUrl || this.defaultLoginRedirectUrl;
 
-	shouldComponentUpdate(nextProps, nextState) {
-		return nextState.accessGranted !== this.state.accessGranted;
-	}
-
-	componentDidUpdate() {
-		if (!this.state.accessGranted) {
-			this.redirectRoute();
-		}
-	}
-
-	static getDerivedStateFromProps(props, state) {
-		const { location, userRole } = props;
-		const { pathname } = location;
-
-		const matched = matchRoutes(state.routes, pathname)[0];
-		let hasPermission = false;
-		let external = false;
-		if (userRole && userRole.length > 0 && ['admin'].includes(userRole[0])) {
-			hasPermission = true;
-		}
-
-		if (pathname.startsWith('/external')) {
-			hasPermission = true;
-			external = true;
-		}
-
-		if (pathname) {
-			return {
-				accessGranted: matched ? hasPermission : false,
-				external
-			};
-		}
-		return null;
-	}
-
-	redirectRoute() {
-		const { location, userRole, history } = this.props;
-		const { pathname, state } = location;
-		const redirectUrl = state && state.redirectUrl ? state.redirectUrl : '/';
-
-		/*
+    /*
         User is guest
         Redirect to Login Page
         */
-		if (!userRole || userRole.length === 0) {
-			history.push({
-				pathname: '/login',
-				state: { redirectUrl: pathname }
-			});
-		} else {
-			/*
+    if (!userRole || userRole.length === 0) {
+      setTimeout(() => history.push('/sign-in'), 0);
+      loginRedirectUrl = pathname;
+    } else {
+      /*
         User is member
         User must be on unAuthorized page or just logged in
-        Redirect to dashboard or redirectUrl
+        Redirect to dashboard or loginRedirectUrl
         */
-			/* history.push({
-				pathname: redirectUrl
-			}); */
-		}
-	}
+      setTimeout(() => history.push(redirectUrl), 0);
+      loginRedirectUrl = this.defaultLoginRedirectUrl;
+    }
+  }
 
-	render() {
-		// Login
-		// console.info('Fuse Authorization rendered', accessGranted);
-		if (this.state.external) {
-			return <External />;
-		}
-		return this.state.accessGranted ? <>{this.props.children}</> : <Login />;
+  render() {
+    console.log(this.state.accessGranted)
+	// Login
+	// console.info('Fuse Authorization rendered', accessGranted);
+	if (this.state.external) {
+		return <External />;
 	}
+	return this.state.accessGranted ? <>{this.props.children}</> : <Login />;
 }
-
-function mapStateToProps({ auth }) {
-	return {
-		userRole: auth.user.role
-	};
 }
 
 FuseAuthorization.contextType = AppContext;
 
-export default withRouter(connect(mapStateToProps)(FuseAuthorization));
+export default withRouter(FuseAuthorization);

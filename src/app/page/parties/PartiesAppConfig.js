@@ -1,5 +1,6 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+const PartiesApp = React.lazy(() => import('./PartiesApp'))
 
 const BuildingSuppliersAppConfig = {
 	settings: {
@@ -10,11 +11,11 @@ const BuildingSuppliersAppConfig = {
 	routes: [
 		{
 			path: '/partyType',
-			component: React.lazy(() => import('./PartiesApp'))
+			element: <PartiesApp/>
 		},
 		{
 			path: '/partyType/new',
-			component: () => <Redirect to="/partyType" />
+			element: <Navigate to="/partyType" />
 		}
 	]
 };

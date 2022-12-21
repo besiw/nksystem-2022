@@ -1,5 +1,6 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+const  ServiceApp= React.lazy(() => import('./serviceApp'));
 
 const ServicesAppConfig = {
 	settings: {
@@ -10,11 +11,11 @@ const ServicesAppConfig = {
 	routes: [
 		{
 			path: '/services',
-			component: React.lazy(() => import('./serviceApp'))
+			element: <ServiceApp/>
 		},
 		{
 			path: '/services/new',
-			component: () => <Redirect to="/services" />
+			element: <Navigate to="/services" />
 		}
 	]
 };

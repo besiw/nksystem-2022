@@ -1,11 +1,11 @@
 import FuseSearch from '@fuse/core/FuseSearch';
 import FuseShortcuts from '@fuse/core/FuseShortcuts';
-import AppBar from '@material-ui/core/AppBar';
-import Hidden from '@material-ui/core/Hidden';
-import Icon from '@material-ui/core/Icon';
-import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
-import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
+import AppBar from '@mui/material/AppBar';
+import Hidden from '@mui/material/Hidden';
+import Icon from '@mui/material/Icon';
+import { makeStyles, ThemeProvider } from '@mui/material/styles';
+import Toolbar from '@mui/material/Toolbar';
+import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 import NavbarToggleButton from 'app/fuse-layouts/shared-components/NavbarToggleButton';
 import QuickPanelToggleButton from 'app/fuse-layouts/shared-components/quickPanel/QuickPanelToggleButton';

@@ -1,9 +1,9 @@
 import FuseTheme from '@fuse/core/FuseTheme';
 import history from '@history';
 import FuseSuspense from '@fuse/core/FuseSuspense';
-import { createGenerateClassName, jssPreset, StylesProvider } from '@material-ui/core/styles';
+import { createGenerateClassName, jssPreset, StylesProvider } from '@mui/material/styles';
 
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import { MuiPickersUtilsProvider } from '@mui/x-date-pickers';
 import { create } from 'jss';
 import jssExtend from 'jss-plugin-extend';
 import rtl from 'jss-rtl';
@@ -12,8 +12,8 @@ import { Router } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 import DateFnsUtils from '@date-io/date-fns';
 import { renderRoutes } from 'react-router-config';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
 import FuseAuthorization from './FuseAuthorization';
 import AppContext from './AppContext';
 import { Auth } from '../auth';

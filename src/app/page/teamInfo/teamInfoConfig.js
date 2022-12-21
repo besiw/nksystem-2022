@@ -1,6 +1,7 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
-
+const  UserProfile= React.lazy(() => import('./userProfile'))
+const UsersApp=React.lazy(() => import('./UsersApp'))
+const CompanyProfile = React.lazy(() => import('./CompanyProfile'))
 const TeamInfoConfig = {
 	settings: {
 		layout: {
@@ -10,15 +11,15 @@ const TeamInfoConfig = {
 	routes: [
 		{
 			path: '/team/me',
-			component: React.lazy(() => import('./userProfile'))
+			element: <UserProfile/>
 		},
 		{
 			path: '/team/all',
-			component: React.lazy(() => import('./UsersApp'))
+			element: <UsersApp/>
 		},
 		{
 			path: '/team/company',
-			component: React.lazy(() => import('./CompanyProfile'))
+			element: <CompanyProfile/>
 		}
 	]
 };

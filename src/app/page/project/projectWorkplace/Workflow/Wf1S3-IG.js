@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDropzone } from 'react-dropzone';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import FileChip from 'app/shared-components/MailAttachment';
 import allRequests, { requestNBK } from 'api/allRequests';
 import { hideMessage, showMessage } from 'app/store/fuse/messageSlice';

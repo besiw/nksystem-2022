@@ -2,26 +2,26 @@
 import { useForm, Controller } from 'react-hook-form';
 
 import FuseUtils from '@fuse/utils/FuseUtils';
-import AppBar from '@material-ui/core/AppBar';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import Fab from '@material-ui/core/Fab';
-import Icon from '@material-ui/core/Icon';
-import IconButton from '@material-ui/core/IconButton';
-import ListItem from '@material-ui/core/ListItem';
-import TextField from '@material-ui/core/TextField';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import AppBar from '@mui/material/AppBar';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import Fab from '@mui/material/Fab';
+import Icon from '@mui/material/Icon';
+import IconButton from '@mui/material/IconButton';
+import ListItem from '@mui/material/ListItem';
+import TextField from '@mui/material/TextField';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
 import React, { useCallback, useEffect } from 'react';
 import ReactSelect from 'react-select';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
 import { useDispatch, useSelector } from 'react-redux';
-/* import FormControlLabel from '@material-ui/core/FormControlLabel' */
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
+/* import FormControlLabel from '@mui/material/FormControlLabel' */
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 import clsx from 'clsx';
 import ChecklistItem from './ChecklistItem';
 

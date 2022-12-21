@@ -1,16 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
-import Button from '@material-ui/core/Button';
-import { DateTimePicker } from '@material-ui/pickers';
-import TextField from '@material-ui/core/TextField';
+import Checkbox from '@mui/material/Checkbox';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+import Button from '@mui/material/Button';
+import { DateTimePicker } from '@mui/x-date-pickers';
+import TextField from '@mui/material/TextField';
 import allRequests, { requestNBK } from 'api/allRequests';
 import ReactSelect from 'react-select';
 import { useForm, Controller } from 'react-hook-form';
-import Typography from '@material-ui/core/Typography';
+import Typography from '@mui/material/Typography';
 import { showMessage } from 'app/store/fuse/messageSlice';
 
 const Workflow = ({ projectId, closeDialog, selectedWorkflowId }) => {

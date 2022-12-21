@@ -4,20 +4,19 @@ import withReducer from 'app/store/withReducer';
 import { lazy, useState } from 'react';
 import slugs from 'app/strings';
 import { useDispatch, useSelector } from 'react-redux';
-import { Switch, Route, Redirect, useRouteMatch, useParams } from 'react-router-dom';
+import {  useParams, Route,Routes} from 'react-router-dom';
 import { useDeepCompareEffect } from '@fuse/hooks';
 import reducer from './store';
 import { newProject, getProject, resetProject, getProjectWithWorkflow } from './store/projectSlice';
-
+import { useRoutes, matchRoutes, useLocation  } from 'react-router-dom';
 const TestRouteComponent = props => {
 	const params = useParams();
 	const project = useSelector(({ projectApp }) => projectApp.project && projectApp.project.info);
 	return <div>test component</div>;
 };
 
-function Projects() {
-	console.log('project')
-	const { path, url } = useRouteMatch();
+function Projects(props) {
+	const location =useLocation()
 	const dispatch = useDispatch();
 
 	const routeParams = useParams();
@@ -47,36 +46,50 @@ function Projects() {
 		}
 		updateprojectState();
 	}, [dispatch, routeParams]);
-	console.log(routes)
+
 	return isLoading ? (
 		<FuseLoading />
 	) : (
-		<div>project</div>
+		<Routes>
+			{appRoutes.map((item, key) => {
+				return <Route path={`${item.path}`} element={item.element} key={key} />;
+			})}
+		</Routes>
 	);
 }
 
 export default withReducer('projectApp', reducer)(Projects);
 
-const routes = [
+const ProjectDocsApp = lazy(() => import('./projectWorkplace/ProjectDocsApp'));
+const ProjectConfigApp = lazy(() => import('./projectConfig/ProjectConfigApp'));
+const ProjeckWorkplaceApp= lazy(() => import('./projectWorkplace/ProjeckWorkplaceApp'));
+
+const appRoutes = [
 	{
-		path: `/${slugs.slug_project}/:projectId/docs/:workflowId`,
-		component: lazy(() => import('./projectWorkplace/ProjectDocsApp'))
+		path: `/docs/:workflowId`,
+		element: <ProjectDocsApp />
+		
 	},
 	{
-		path: `/${slugs.slug_project}/:projectId/config`,
-		component: lazy(() => import('./projectConfig/ProjectConfigApp'))
+		path: `/config`,
+		element: <ProjectConfigApp />
 	},
 	{
-		path: `/${slugs.slug_project}/:projectId/workplace/:wIdsId`,
-		component: lazy(() => import('./projectWorkplace/ProjeckWorkplaceApp'))
+		path: `/config/*`,
+		element: <ProjectConfigApp />
 	},
 	{
-		path: `/${slugs.slug_project}/:projectId/workplace`,
-		component: lazy(() => import('./projectWorkplace/ProjeckWorkplaceApp'))
+		path: `/workplace/:wIdsId`,
+		element: <ProjeckWorkplaceApp />
+		
 	},
 	{
-		path: `/${slugs.slug_project}/:projectId`,
-		component: lazy(() => import('./projectWorkplace/ProjeckWorkplaceApp'))
+		path: `/workplace/*`,
+		element: <ProjeckWorkplaceApp />
+	},
+	{
+		path: `/*`,
+		element: <ProjeckWorkplaceApp />
 	},
 	{
 		path: `/`,

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import allRequests, { requestNBK } from 'api/allRequests';
-import Typography from '@material-ui/core/Typography';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
+import Typography from '@mui/material/Typography';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 
 const Step1Email = props => {
 	const { projectId } = props;

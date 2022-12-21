@@ -64,11 +64,11 @@ export const archiveProject = createAsyncThunk('projectApp/project/archive', asy
 
 export const createProject = createAsyncThunk(
 	'projectApp/project/createProject',
-	async ({ data, history }, { dispatch, getState }) => {
+	async ({ data, navigate }, { dispatch, getState }) => {
 		const { id, ...rest } = data;
 		const response = await requestNBK({ requestConfig: allRequests.project.create, body: { project: rest } }).then(
 			res => {
-				history.push(`/${appStrings.slug_project}/${res.project.id}`);
+				navigate(`/${appStrings.slug_project}/${res.project.id}`);
 				return res;
 			}
 		);
@@ -77,7 +77,7 @@ export const createProject = createAsyncThunk(
 );
 export const saveProject = createAsyncThunk(
 	'projectApp/project/saveProject',
-	async ({ data, history }, { dispatch, getState }) => {
+	async ({ data, navigate }, { dispatch, getState }) => {
 		const { project } = getState().projectApp;
 		try {
 			const response = await requestNBK({
@@ -86,7 +86,7 @@ export const saveProject = createAsyncThunk(
 			}).then(res => {
 				if (res.project) {
 					dispatch(getProjectWithWorkflow({ ProjectID: project.id }));
-					history.push(`/${appStrings.slug_project}/${res.project.id}`);
+					navigate(`/${appStrings.slug_project}/${res.project.id}`);
 					return res;
 				}
 				throw Error('cannot find project');

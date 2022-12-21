@@ -3,7 +3,7 @@ import { Controller, useForm } from 'react-hook-form';
 import _ from '@lodash';
 import { darkPaletteText, lightPaletteText } from 'app/configs/themesConfig';
 import { darken, getContrastRatio, lighten } from '@mui/material/styles';
-import { useTheme } from '@mui/styles';
+import { useTheme } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import { Dialog, DialogActions, DialogContent, Icon, TextField } from '@mui/material';

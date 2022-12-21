@@ -1,11 +1,11 @@
-import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
-import { useTheme } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import Button from '@mui/material/Button';
+import Icon from '@mui/material/Icon';
+import { useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 import { motion } from 'framer-motion';
 import { useFormContext } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import _ from '@lodash';
 import appStrings from 'app/strings';
 import { hideMessage, showMessage } from 'app/store/fuse/messageSlice';
@@ -21,7 +21,7 @@ function ProductHeader(props) {
 	const { isValid, dirtyFields } = formState;
 	const name = watch('title');
 	const theme = useTheme();
-	const history = useHistory();
+	const navigate = useNavigate()
 
 	function handleSaveProduct() {
 		const value = getValues();
@@ -59,15 +59,15 @@ function ProductHeader(props) {
 		if (errorMessage !== '') {
 			dispatch(showMessage({ message: errorMessage }));
 		} else if (projectId === 'new') {
-			dispatch(createProject({ data: value, history }));
+			dispatch(createProject({ data: value, navigate }));
 		} else {
-			dispatch(saveProject({ data: value, history }));
+			dispatch(saveProject({ data: value, navigate }));
 		}
 	}
 
 	function handleRemoveProduct() {
 		dispatch(removeProject(projectId)).then(() => {
-			history.push('/products');
+			navigate('/products');
 		});
 	}
 
@@ -75,7 +75,7 @@ function ProductHeader(props) {
 		projectId === 'new' ? `/${appStrings.slug_projects}` : `/${appStrings.slug_project}/${projectId}/workplace`;
 	const backText = projectId === 'new' ? appStrings.projects : 'Dashboard';
 	return (
-		<div className="flex flex-1 w-full items-center justify-between">
+		<div className="flex flex-1 w-full items-center justify-between p-8 sm:p-24">
 			<div className="flex flex-col items-start max-w-full min-w-0">
 				<motion.div initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1, transition: { delay: 0.3 } }}>
 					<Typography

@@ -1,15 +1,16 @@
-import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
-import Input from '@material-ui/core/Input';
-import Paper from '@material-ui/core/Paper';
-import { ThemeProvider } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import Button from '@mui/material/Button';
+import Icon from '@mui/material/Icon';
+import Input from '@mui/material/Input';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 import { motion } from 'framer-motion';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { selectMainTheme } from 'app/store/fuse/settingsSlice';
 import slugs from 'app/strings';
 import { setProjectsSearchText } from './store/projectsSlice';
+import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 
 function ProductsHeader(props) {
 	const dispatch = useDispatch();
@@ -19,64 +20,56 @@ function ProductsHeader(props) {
 	const mainTheme = useSelector(selectMainTheme);
 
 	return (
-		<div className="flex flex-1 w-full items-center justify-between">
-			<div className="flex items-center">
-				<Icon
-					component={motion.span}
-					initial={{ scale: 0 }}
-					animate={{ scale: 1, transition: { delay: 0.2 } }}
-					className="text-24 md:text-32"
+		
+		<div className="flex flex-col sm:flex-row space-y-16 sm:space-y-0 flex-1 w-full items-center justify-between py-32 px-24 md:px-32">
+			<Typography
+			component={motion.span}
+			initial={{ x: -20 }}
+			animate={{ x: 0, transition: { delay: 0.2 } }}
+			delay={300}
+			className="text-24 md:text-32 font-extrabold tracking-tight"
+			>
+				Products
+			</Typography>
+  
+			<div className="flex flex-col w-full sm:w-auto sm:flex-row space-y-16 sm:space-y-0 flex-1 items-center justify-end space-x-8">
+				<Paper
+					component={motion.div}
+					initial={{ y: -20, opacity: 0 }}
+					animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}
+					className="flex items-center w-full sm:max-w-256 space-x-8 px-16 rounded-full border-1 shadow-0"
 				>
-					ballot
-				</Icon>
-				<Typography
-					component={motion.span}
-					initial={{ x: -20 }}
-					animate={{ x: 0, transition: { delay: 0.2 } }}
-					delay={300}
-					className="hidden sm:flex text-16 md:text-24 mx-12 font-semibold"
+					<FuseSvgIcon color="disabled">heroicons-solid:search</FuseSvgIcon>
+		
+					<Input
+					placeholder="Search products"
+					className="flex flex-1"
+					disableUnderline
+					fullWidth
+					value={searchText}
+					inputProps={{
+						'aria-label': 'Search',
+					}}
+					onChange={(ev) => dispatch(setProjectsSearchText(ev))}
+					/>
+				</Paper>
+				<motion.div
+					initial={{ opacity: 0, x: 20 }}
+					animate={{ opacity: 1, x: 0, transition: { delay: 0.2 } }}
 				>
-					Project
-				</Typography>
-			</div>
-
-			<div className="flex flex-1 items-center justify-center px-12">
-				<ThemeProvider theme={mainTheme}>
-					<Paper
-						component={motion.div}
-						initial={{ y: -20, opacity: 0 }}
-						animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}
-						className="flex items-center w-full max-w-512 px-8 py-4 rounded-16 shadow"
-					>
-						<Icon color="action">search</Icon>
-
-						<Input
-							placeholder="Search"
-							className="flex flex-1 mx-8"
-							disableUnderline
-							fullWidth
-							value={searchText}
-							inputProps={{
-								'aria-label': 'Search'
-							}}
-							onChange={ev => dispatch(setProjectsSearchText(ev))}
-						/>
-					</Paper>
-				</ThemeProvider>
-			</div>
-			<motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0, transition: { delay: 0.2 } }}>
-				<Button
+					<Button
+					className=""
 					component={Link}
 					to={`/${slugs.slug_project}/new/config`}
-					className="whitespace-nowrap"
 					variant="contained"
 					color="secondary"
-				>
-					<span className="hidden sm:flex">Add New Project</span>
-					<span className="flex sm:hidden">New</span>
-				</Button>
-			</motion.div>
-		</div>
+					startIcon={<FuseSvgIcon>heroicons-outline:plus</FuseSvgIcon>}
+					>
+					Add
+					</Button>
+				</motion.div>
+			</div>
+	  </div>
 	);
 }
 

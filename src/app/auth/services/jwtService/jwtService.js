@@ -1,51 +1,57 @@
 import FuseUtils from '@fuse/utils/FuseUtils';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
-import jwtServiceConfig from './jwtServiceConfig';
-
-/* eslint-disable camelcase */
 
 class JwtService extends FuseUtils.EventEmitter {
-  init() {
-    this.setInterceptors();
-    this.handleAuthentication();
-  }
+	init() {
+		this.setInterceptors();
+		this.handleAuthentication();
+	}
 
-  setInterceptors = () => {
-    axios.interceptors.response.use(
-      (response) => {
-        return response;
-      },
-      (err) => {
-        return new Promise((resolve, reject) => {
-          if (err.response.status === 401 && err.config && !err.config.__isRetryRequest) {
-            // if you ever get an unauthorized response, logout the user
-            this.emit('onAutoLogout', 'Invalid access_token');
-            this.setSession(null);
-          }
-          throw err;
-        });
-      }
-    );
-  };
+	setInterceptors = () => {
+		axios.interceptors.request.use(function (config) {
+			const { url, ...rest } = config;
+			const updated = {
+				...rest,
+				url: `${process.env.REACT_APP_API_URL}/api${url}`
+			};
+			/* 			console.log(updated); */
+			return updated;
+		});
+		axios.interceptors.response.use(
+			response => response,
+			err => {
+				console.log(err);
+				return new Promise((resolve, reject) => {
+					if (err.response && err.response.status === 401 && err.config && !err.config.__isRetryRequest) {
+						// if you ever get an unauthorized response, logout the user
+						this.emit('onAutoLogout', 'Invalid accessToken');
+						this.setSession(null);
+					}
+					throw err;
+				});
+			}
+		);
+	};
 
-  handleAuthentication = () => {
-    const access_token = this.getAccessToken();
+	handleAuthentication = () => {
+		const accessToken = this.getAccessToken();
+		const userId = this.getSessionUserId();
+		if (!accessToken) {
+			this.emit('onNoAccessToken');
 
-    if (!access_token) {
-      this.emit('onNoAccessToken');
+			return;
+		}
 
-      return;
-    }
-
-    if (this.isAuthTokenValid(access_token)) {
-      this.setSession(access_token);
-      this.emit('onAutoLogin', true);
-    } else {
-      this.setSession(null);
-      this.emit('onAutoLogout', 'access_token expired');
-    }
-  };
+		if (this.isAuthTokenValid(accessToken)) {
+			this.setSession(accessToken, userId);
+      		console.log('onAutoLogin')
+			this.emit('onAutoLogin', true);
+		} else {
+			this.setSession(null);
+			this.emit('onAutoLogout', 'accessToken expired');
+		}
+	};
 
   createUser = (data) => {
     return new Promise((resolve, reject) => {
@@ -61,89 +67,132 @@ class JwtService extends FuseUtils.EventEmitter {
     });
   };
 
-  signInWithEmailAndPassword = (email, password) => {
-    return new Promise((resolve, reject) => {
-      axios
-        .get(jwtServiceConfig.signIn, {
-          data: {
-            email,
-            password,
-          },
-        })
-        .then((response) => {
-          if (response.data.user) {
-            this.setSession(response.data.access_token);
-            resolve(response.data.user);
-            this.emit('onLogin', response.data.user);
-          } else {
-            reject(response.data.error);
-          }
-        });
-    });
-  };
+	signInWithEmailAndPassword = (email, password) => {
+		return new Promise((resolve, reject) => {
+			const url = `/users/Authenticate`;
 
-  signInWithToken = () => {
-    return new Promise((resolve, reject) => {
-      axios
-        .get(jwtServiceConfig.accessToken, {
-          data: {
-            access_token: this.getAccessToken(),
-          },
-        })
-        .then((response) => {
-          if (response.data.user) {
-            this.setSession(response.data.access_token);
-            resolve(response.data.user);
-          } else {
-            this.logout();
-            reject(new Error('Failed to login with token.'));
-          }
-        })
-        .catch((error) => {
-          this.logout();
-          reject(new Error('Failed to login with token.'));
-        });
-    });
-  };
+			const options = {
+				url,
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				data: {
+					UserName: email,
+					Password: password
+				}
+			};
 
-  updateUserData = (user) => {
-    return axios.post(jwtServiceConfig.updateUser, {
-      user,
-    });
-  };
+			axios(options)
+				.then(response => {
+					if (response.data) {
+						this.setSession(response.data.token, response.data.id);
+						const user = response.data;
 
-  setSession = (access_token) => {
-    if (access_token) {
-      localStorage.setItem('jwt_access_token', access_token);
-      axios.defaults.headers.common.Authorization = `Bearer ${access_token}`;
-    } else {
-      localStorage.removeItem('jwt_access_token');
-      delete axios.defaults.headers.common.Authorization;
-    }
-  };
+						const toReturn = {
+							role: ['admin'], // guest
+							data: {
+								companyId: user.companyId,
+								id: user.id,
+								userName: user.userName,
+								displayName: user.fullName
+								/* 							photoURL: 'assets/images/avatars/Velazquez.jpg',
+							email: 'johndoe@withinpixels.com',
+							shortcuts: ['calendar', 'mail', 'contacts', 'todo'] */
+							}
+						};
+          this.emit('onLogin', toReturn);
+						resolve(toReturn);
+					} else {
+						reject(response.data.error);
+					}
+				})
+				.catch(error => {
+					reject(error.message);
+				});
+		});
+	};
 
-  logout = () => {
-    this.setSession(null);
-    this.emit('onLogout', 'Logged out');
-  };
+	signInWithToken = () => {
+		return new Promise((resolve, reject) => {
+			const token = this.getAccessToken();
+			const id = this.getSessionUserId();
+			axios
+				.get(`/UserProfile/GetUserProfile`, {
+					params: {
+						UserProfileID: id
+					},
+					headers: {
+						Authorization: `Bearer ${token}`
+					}
+				})
+				.then(response => {
+					if (response.data && response.data.userProfile) {
+						const user = response.data.userProfile;
+						const toReturn = {
+							role: ['admin'], // guest
+							data: {
+								companyId: user.companyId,
+								id: user.id,
+								userName: user.userName,
+								displayName: user.userName
+								/* 								photoURL: 'assets/images/avatars/Velazquez.jpg',
+								email: 'johndoe@withinpixels.com',
+								shortcuts: ['calendar', 'mail', 'contacts', 'todo'] */
+							}
+						};
+            console.log(toReturn)
+						resolve(toReturn);
+					} else {
+						this.logout();
+						reject(new Error('Failed to login with token.'));
+					}
+				})
+				.catch(error => {
+					this.logout();
+					reject(new Error('Failed to login with token.'));
+				});
+		});
+	};
 
-  isAuthTokenValid = (access_token) => {
-    if (!access_token) {
-      return false;
-    }
-    const decoded = jwtDecode(access_token);
-    const currentTime = Date.now() / 1000;
-    if (decoded.exp < currentTime) {
-      console.warn('access token expired');
-      return false;
-    }
+	setSession = (accessToken, id) => {
+		if (accessToken && id) {
+			localStorage.setItem('session_userId', id);
+			localStorage.setItem('jwt_accessToken', accessToken);
+			console.log(accessToken);
+			axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+		} else {
+			localStorage.removeItem('session_userId');
+			localStorage.removeItem('jwt_accessToken');
+			delete axios.defaults.headers.common.Authorization;
+		}
+	};
 
-    return true;
-  };
+	logout = () => {
+		this.setSession(null);
+	};
 
-  getAccessToken = () => {
-    return window.localStorage.getItem('jwt_access_token');
-  };
+	isAuthTokenValid = accessToken => {
+		if (!accessToken) {
+			return false;
+		}
+		const decoded = jwtDecode(accessToken);
+		const currentTime = Date.now() / 1000;
+		if (decoded.exp < currentTime) {
+			console.warn('access token expired');
+			return false;
+		}
+
+		return true;
+	};
+
+	getAccessToken = () => {
+		return window.localStorage.getItem('jwt_accessToken');
+	};
+
+	getSessionUserId = () => {
+		return window.localStorage.getItem('session_userId');
+	};
 }
 
 const instance = new JwtService();

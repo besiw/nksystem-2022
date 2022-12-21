@@ -1,6 +1,8 @@
 import { lazy } from 'react';
-import { Redirect } from 'react-router-dom';
 import appStrings from 'app/strings';
+const ProjectsApp=lazy(() => import('./ProjectsApp'))
+const ArchivedProjects = lazy(() => import('./ArchivedProjects'))
+const DeletedProjects = lazy(() => import('./DeletedProjects'))
 
 const ProjectsAppConfig = {
 	settings: {
@@ -9,15 +11,15 @@ const ProjectsAppConfig = {
 	routes: [
 		{
 			path: `/${appStrings.slug_projects}`,
-			component: lazy(() => import('./ProjectsApp'))
+			element: <ProjectsApp />,
 		},
 		{
 			path: `/${appStrings.slug_projects}-archived`,
-			component: lazy(() => import('./ArchivedProjects'))
+			element: <ArchivedProjects />,
 		},
 		{
 			path: `/${appStrings.slug_projects}-deleted`,
-			component: lazy(() => import('./DeletedProjects'))
+			element: <DeletedProjects />,
 		}
 	]
 };

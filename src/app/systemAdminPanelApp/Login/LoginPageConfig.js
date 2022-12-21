@@ -1,5 +1,5 @@
 import React from 'react';
-
+const LoginPage = React.lazy(() => import('./LoginPage'))
 const LoginPageConfig = {
 	settings: {
 		layout: {
@@ -9,7 +9,7 @@ const LoginPageConfig = {
 	routes: [
 		{
 			path: '/login',
-			component: React.lazy(() => import('./LoginPage'))
+			element: <LoginPage/>
 		}
 	]
 };

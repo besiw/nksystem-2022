@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useRef } from 'react';
 import withReducer from 'app/store/withReducer';
-import StateManager from 'react-select';
 
 import {
 	selectAllContacts,
@@ -29,11 +28,15 @@ const {
 	[`closeEdit${name}Dialog`]: closeEditDialog
 } = ContactAppSlice.actions;
 
+  
 const actions = { setSearchText, openNewDialog, closeNewDialog, openEditDialog, closeEditDialog };
 const ContactApp = () => {
 	const pageLayout = useRef(null);
 	const dispatch = useDispatch();
-	const hasContact = useSelector(state => state.contact.ids > 0);
+	const hasContact = useSelector(state => {
+		console.log(state)
+		return state.contact.ids > 0
+	});
 
 	useEffect(() => {
 		if (!hasContact) {

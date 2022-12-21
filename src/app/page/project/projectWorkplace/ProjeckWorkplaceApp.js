@@ -1,20 +1,13 @@
 import FusePageSimple from '@fuse/core/FusePageSimple';
 import { useEffect, useState, useRef, lazy } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useDeepCompareEffect } from '@fuse/hooks';
-import { Link, useParams, useHistory, useLocation } from 'react-router-dom';
-import withReducer from 'app/store/withReducer';
-import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Icon from '@material-ui/core/Icon';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
+import { Link, useParams, useNavigate, useLocation } from 'react-router-dom';
+import Icon from '@mui/material/Icon';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 import { motion } from 'framer-motion';
-import Paper from '@material-ui/core/Paper';
+import Paper from '@mui/material/Paper';
 import slugs from 'app/strings';
-import LeftSidebarHeader from './ProjectWorkplaceSidenavHeader';
 import LeftSidebar from './ProjectWorkplaceSidenav';
 import StepDialog from './StepDialog';
 import Steps from './Steps';
@@ -74,7 +67,8 @@ function ProjectWorkflows(props) {
 	const [dialogContext, setDialogContext] = useState(null);
 	const [title, setTitle] = useState('');
 	const { projectId, wIdsId } = routeParams;
-	const history = useHistory();
+
+	const navigate=useNavigate()
 
 	useEffect(() => {
 		if (project && project.workflows) {
@@ -111,7 +105,7 @@ function ProjectWorkflows(props) {
 	};
 	const backToSteps = () => {
 		updateprojectState();
-		history.push(`/${slugs.slug_project}/${projectId}/workplace`);
+		navigate(`/${slugs.slug_project}/${projectId}/workplace`);
 	};
 
 	const getdialogContext = stepPath => {
@@ -142,7 +136,7 @@ function ProjectWorkflows(props) {
 		} else if (stepNonDialogMap[stepPath]) {
 			setContentId(stepPath);
 			if (wIdsId !== stepPath) {
-				history.push(`/${slugs.slug_project}/${projectId}/workplace/${stepPath}`);
+				navigate(`/${slugs.slug_project}/${projectId}/workplace/${stepPath}`);
 			}
 		} else {
 			setContentId(null);
@@ -163,7 +157,7 @@ function ProjectWorkflows(props) {
 			const { workflows } = project;
 
 			if (workflows[targetValue].workflowCategoryId === 2) {
-				history.push(`/${slugs.slug_project}/${projectId}/workplace/w2s1`);
+				navigate(`/${slugs.slug_project}/${projectId}/workplace/w2s1`);
 			} else {
 				setContentId(null);
 				setDialogContentId(null);
@@ -205,7 +199,7 @@ function ProjectWorkflows(props) {
 					content={
 						workflow && (
 							<div className="flex md:grid md:grid-cols-12 w-full">
-								<div className="md:col-start-1 md:col-end-9 pr-12">
+								<div className="md:col-start-1 md:col-end-9 px-12">
 									<div className="flex flex-1 items-center justify-end">
 										<Link to={`/${slugs.slug_project}/${project.id}/docs/${workflow.id}`}>
 											<IconButton>

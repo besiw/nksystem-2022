@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import allRequests, { requestNBK } from 'api/allRequests';
 import SelectContact from 'app/shared-components/SelectContact';
-import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
-import { DateTimePicker } from '@material-ui/pickers';
-import Typography from '@material-ui/core/Typography';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
+import { DateTimePicker } from '@mui/x-date-pickers';
+import Typography from '@mui/material/Typography';
 
 const Workflow = props => {
 	const dispatch = useDispatch();
