@@ -1,9 +1,9 @@
 import themesConfig from 'app/configs/themesConfig';
 import i18n from '../../i18n';
-
+const isAdmin = process.env.REACT_APP_IS_ADMIN_PANEL;
 const settingsConfig = {
   layout: {
-    style: 'layout1', // layout1 layout2 layout3
+    style: isAdmin?'layout2':'layout1', // layout1 layout2 layout3
     config: {}, // checkout default layout configs at app/theme-layouts for example  app/theme-layouts/layout1/Layout1Config.js
   },
   customScrollbars: true,

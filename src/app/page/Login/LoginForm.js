@@ -1,137 +1,141 @@
-import { TextFieldFormsy } from '@fuse/core/formsy';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Controller, useForm } from 'react-hook-form';
 import Button from '@mui/material/Button';
-import Icon from '@mui/material/Icon';
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
+import Checkbox from '@mui/material/Checkbox';
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import TextField from '@mui/material/TextField';
+import * as yup from 'yup';
+import _ from '@lodash';;
+import { useEffect } from 'react';
+import jwtService from '../../auth/services/jwtService';
+import { useNavigate } from 'react-router-dom';
 
-import Formsy from 'formsy-react';
-import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { submitLogin } from './store/loginSlice';
+/**
+ * Form Validation Schema
+ */
+const schema = yup.object().shape({
+  email: yup.string().required('You must enter a email'),
+  password: yup
+    .string()
+    .required('Please enter your password.')
+    .min(4, 'Password is too short - must be at least 4 chars.'),
+});
 
-function JWTLoginTab(props) {
-	const dispatch = useDispatch();
-	const login = useSelector(({ auth }) => auth.login);
+const defaultValues = {
+  email: '',
+  password: '',
+  remember: true,
+};
 
-	const [isFormValid, setIsFormValid] = useState(false);
-	const [showPassword, setShowPassword] = useState(false);
-	const [loadingFormResult, setLoadingFormResult] = useState(false);
-	const formRef = useRef(null);
+function SignInPage() {
+  const { control, formState, handleSubmit, setError, setValue } = useForm({
+    mode: 'onChange',
+    defaultValues,
+    resolver: yupResolver(schema),
+  });
 
-	useEffect(() => {
-		if (login.error && (login.error.email || login.error.password)) {
-			formRef.current.updateInputsWithError({
-				...login.error
-			});
-			disableButton();
-		}
-	}, [login.error]);
+  const { isValid, dirtyFields, errors } = formState;
 
-	function disableButton() {
-		setIsFormValid(false);
-	}
+  useEffect(() => {
+    setValue('email', '', { shouldDirty: true, shouldValidate: true });
+    setValue('password', '', { shouldDirty: true, shouldValidate: true });
+  }, [setValue]);
 
-	function enableButton() {
-		setIsFormValid(true);
-	}
+  const navigate = useNavigate()
 
-	function handleSubmit(model) {
-		console.log(model);
-		setLoadingFormResult(true);
-		dispatch(submitLogin(model));
-	}
+  function onSubmit({ email, password }) {
+    jwtService
+      .signInWithEmailAndPassword(email, password)
+      .then((user) => {
+        console.log(user)
+        navigate("/")
+        // No need to do anything, user data will be set at app/auth/AuthContext
+      })
+      .catch((_errors) => {
+		console.log(_errors)
+        _errors.forEach((error) => {
+          setError(error.type, {
+            type: 'manual',
+            message: error.message,
+          });
+        });
+      });
+  }
 
-	function handleCheckbox() {}
-	console.log(login.error);
-	return (
-		<div className="w-full">
-			<div className="pb-24 text-red-600">{typeof login.error === 'string' ? login.error : ''}</div>
-			<Formsy
-				onValidSubmit={handleSubmit}
-				onValid={enableButton}
-				onInvalid={disableButton}
-				ref={formRef}
-				className="flex flex-col justify-center w-full"
-			>
-				<TextFieldFormsy
-					className="mb-16"
-					type="text"
-					name="email"
-					label="Username"
-					value=""
-					validations={{
-						minLength: 4
-					}}
-					validationErrors={{
-						minLength: 'Min character length is 4'
-					}}
-					InputProps={{
-						endAdornment: (
-							<InputAdornment position="end">
-								<Icon className="text-20" color="action">
-									email
-								</Icon>
-							</InputAdornment>
-						)
-					}}
-					variant="outlined"
-					required
-				/>
+  return (
+    <form
+        name="loginForm"
+        noValidate
+        className="flex flex-col justify-center w-full mt-32"
+        onSubmit={handleSubmit(onSubmit)}
+    >
+        <Controller
+        name="email"
+        control={control}
+        render={({ field }) => (
+            <TextField
+            {...field}
+            className="mb-24"
+            label="Email"
+            autoFocus
+            type="email"
+            error={!!errors.email}
+            helperText={errors?.email?.message}
+            variant="outlined"
+            required
+            fullWidth
+            />
+        )}
+        />
 
-				<TextFieldFormsy
-					className="mb-16"
-					type="password"
-					name="password"
-					label="Password"
-					value=""
-					validations={{
-						minLength: 4
-					}}
-					validationErrors={{
-						minLength: 'Min character length is 4'
-					}}
-					InputProps={{
-						className: 'pr-2',
-						type: showPassword ? 'text' : 'password',
-						endAdornment: (
-							<InputAdornment position="end">
-								<IconButton onClick={() => setShowPassword(!showPassword)}>
-									<Icon className="text-20" color="action">
-										{showPassword ? 'visibility' : 'visibility_off'}
-									</Icon>
-								</IconButton>
-							</InputAdornment>
-						)
-					}}
-					variant="outlined"
-					required
-				/>
-				{/* 				<div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between">
-					<FormControl>
-						<FormControlLabel
-							control={<Checkbox name="remember" checked={false} onChange={handleCheckbox} />}
-							label="Remember Me"
-						/>
-					</FormControl>
+        <Controller
+        name="password"
+        control={control}
+        render={({ field }) => (
+            <TextField
+            {...field}
+            className="mb-24"
+            label="Password"
+            type="password"
+            error={!!errors.password}
+            helperText={errors?.password?.message}
+            variant="outlined"
+            required
+            fullWidth
+            />
+        )}
+        />
 
-					<Link className="font-medium" to="/pages/auth/forgot-password-2">
-						Forgot Password?
-					</Link>
-				</div> */}
-				<Button
-					type="submit"
-					variant="contained"
-					color="primary"
-					className="w-full mx-auto mt-16"
-					aria-label="LOG IN"
-					disabled={!isFormValid && !loadingFormResult}
-					value="legacy"
-				>
-					Login
-				</Button>
-			</Formsy>
-		</div>
-	);
+        <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between">
+        <Controller
+            name="remember"
+            control={control}
+            render={({ field }) => (
+            <FormControl>
+                <FormControlLabel
+                label="Remember me"
+                control={<Checkbox size="small" {...field} />}
+                />
+            </FormControl>
+            )}
+        />
+
+        </div>
+
+        <Button
+        variant="contained"
+        color="secondary"
+        className=" w-full mt-16"
+        aria-label="Sign in"
+        disabled={_.isEmpty(dirtyFields) || !isValid}
+        type="submit"
+        size="large"
+        >
+        Sign in
+        </Button>
+    </form>
+  );
 }
 
-export default JWTLoginTab;
+export default SignInPage;

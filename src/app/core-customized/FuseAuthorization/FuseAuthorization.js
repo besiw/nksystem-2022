@@ -5,12 +5,9 @@ import { matchRoutes } from 'react-router-dom';
 import withRouter from '@fuse/core/withRouter';
 import history from '@history';
 import Login from 'app/page/Login/LoginPage';
-/*import External from 'app/page/external/ExternalLayout';*/
-
-const External = ()=>{
-	return (<div></div>)
-}
-
+import AdminLogin from 'app/page/Login/AdminLoginPage';
+import External from 'app/page/external/ExternalLayout';
+const isAdmin = process.env.REACT_APP_IS_ADMIN_PANEL;
 let loginRedirectUrl = null;
 
 class FuseAuthorization extends Component {
@@ -94,13 +91,13 @@ class FuseAuthorization extends Component {
   }
 
   render() {
-    console.log(this.state.accessGranted)
+    console.log(this.state.external)
 	// Login
 	// console.info('Fuse Authorization rendered', accessGranted);
 	if (this.state.external) {
 		return <External />;
 	}
-	return this.state.accessGranted ? <>{this.props.children}</> : <Login />;
+	return this.state.accessGranted ? <>{this.props.children}</> : (isAdmin?<AdminLogin />:<Login />);
 }
 }
 

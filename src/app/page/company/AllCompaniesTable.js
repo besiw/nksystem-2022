@@ -12,9 +12,9 @@ import Typography from '@mui/material/Typography';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { useEffect, useState, useRef } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import withRouter from '@fuse/core/withRouter';
 import FuseLoading from '@fuse/core/FuseLoading';
 import slugs from 'app/strings';
 import { selectAll, setcompanySearchText } from './store/companySlice';
@@ -24,10 +24,11 @@ const rowPerPage = 20;
 function ProductsTable(props) {
 	const { getProjects, type } = props;
 	const dispatch = useDispatch();
+	const navigate = useNavigate()
 	const projects = useSelector(selectAll);
 	const searchText = useSelector(({ companyApp }) => companyApp.searchText);
 	const count = useSelector(({ companyApp }) => companyApp.count);
-
+	
 	const [loading, setLoading] = useState(true);
 	const [selected, setSelected] = useState([]);
 	const [data, setData] = useState(projects);
@@ -79,7 +80,7 @@ function ProductsTable(props) {
 
 	function handleClick(item) {
 		dispatch(setcompanySearchText({ target: { value: '' } }));
-		props.history.push(`/company/${item.id}`);
+		navigate(`/company/${item.id}`);
 	}
 
 	function handleCheck(event, id) {

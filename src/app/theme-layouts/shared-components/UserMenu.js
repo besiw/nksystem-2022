@@ -7,13 +7,15 @@ import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 import { selectUser } from 'app/store/userSlice';
+import JwtService from '../../auth/services/jwtService';
+import { useNavigate } from 'react-router-dom';
 
 function UserMenu(props) {
+  const navigate = useNavigate()
   const user = useSelector(selectUser);
-
   const [userMenu, setUserMenu] = useState(null);
 
   const userMenuClick = (event) => {
@@ -24,6 +26,11 @@ function UserMenu(props) {
     setUserMenu(null);
   };
 
+  const handleLogout = () => {
+    JwtService.logout();
+    userMenuClose()
+    navigate("/")
+  }
   return (
     <>
       <Button
@@ -72,32 +79,18 @@ function UserMenu(props) {
               </ListItemIcon>
               <ListItemText primary="Sign In" />
             </MenuItem>
-            <MenuItem component={Link} to="/sign-up" role="button">
-              <ListItemIcon className="min-w-40">
-                <FuseSvgIcon>heroicons-outline:user-add </FuseSvgIcon>
-              </ListItemIcon>
-              <ListItemText primary="Sign up" />
-            </MenuItem>
           </>
         ) : (
           <>
-            <MenuItem component={Link} to="/apps/profile" onClick={userMenuClose} role="button">
+            <MenuItem component={Link} to='/team/me' onClick={userMenuClose} role="button">
               <ListItemIcon className="min-w-40">
                 <FuseSvgIcon>heroicons-outline:user-circle</FuseSvgIcon>
               </ListItemIcon>
               <ListItemText primary="My Profile" />
             </MenuItem>
-            <MenuItem component={Link} to="/apps/mailbox" onClick={userMenuClose} role="button">
-              <ListItemIcon className="min-w-40">
-                <FuseSvgIcon>heroicons-outline:mail-open</FuseSvgIcon>
-              </ListItemIcon>
-              <ListItemText primary="Inbox" />
-            </MenuItem>
             <MenuItem
-              component={NavLink}
-              to="/sign-out"
               onClick={() => {
-                userMenuClose();
+                handleLogout();
               }}
             >
               <ListItemIcon className="min-w-40">

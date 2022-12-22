@@ -1,7 +1,7 @@
 import FusePageCarded from '@fuse/core/FusePageCarded';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import withReducer from '../store/withReducer';
+import withReducer from 'app/store/withReducer';
 
 import ProjectsHeader from './AllComapniesHeader';
 import ProjectsTable from './AllCompaniesTable';

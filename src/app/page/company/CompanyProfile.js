@@ -13,10 +13,14 @@ import { useParams, Link } from 'react-router-dom';
 import Switch from '@mui/material/Switch';
 import shortid from 'shortid';
 import StepDialog from 'app/page/project/projectWorkplace/StepDialog';
-import history from '@history';
+import { useNavigate } from 'react-router-dom';
 import UserDialog from './Dialog/UserDialog';
 import FolderDialog from './Dialog/FolderDialog';
 import EmailDialog from './Dialog/EmailDialog';
+import FusePageCarded from '@fuse/core/FusePageCarded';
+import { motion } from 'framer-motion';
+import { useTheme } from '@mui/material/styles';
+
 
 const inputKeys = [
 	{
@@ -99,6 +103,7 @@ const emailInputKeys = [
 function CompanyProfile(props) {
 	const defaultValues = {};
 	const routeParams = useParams();
+	const navigate = useNavigate()
 	const { companyId } = routeParams;
 	const isNew = companyId === 'new';
 	const [folderName, setFolderName] = useState('');
@@ -122,9 +127,9 @@ function CompanyProfile(props) {
 	});
 
 	const dispatch = useDispatch();
-	const profileId = useSelector(({ auth }) => {
-		console.log(auth);
-		return auth.user.data.id;
+	const profileId = useSelector(({ user }) => {
+		console.log(user);
+		return user.data.id;
 	});
 
 	useEffect(() => {
@@ -177,7 +182,7 @@ function CompanyProfile(props) {
 			})
 				.then(res => {
 					console.log(res);
-					history.push(`/company/${res.id}`);
+					navigate(`/company/${res.id}`);
 					dispatch(showMessage({ message: 'Successful!' }));
 
 					/* getData({}); */
@@ -232,29 +237,22 @@ function CompanyProfile(props) {
 
 	return (
 		<div>
-			<FusePageSimple
-				classes={{
-					contentWrapper: 'p-0 sm:p-24 h-full',
-					content: 'flex flex-col h-full',
-					leftSidebar: 'w-256 border-0',
-					header: 'min-h-72 h-72 sm:h-136 sm:min-h-136',
-					wrapper: 'min-h-0'
-				}}
+			<FusePageCarded
 				header={
-					<div className="flex flex-1 items-center justify-between p-4 sm:p-24 relative">
-						<div className="flex flex-shrink items-center sm:w-224">
-							<div className="flex items-center">
-								<Link to="/company">
-										<Typography variant="h6" className="mx-12 hidden sm:flex">
-											{companyName}
-										</Typography>
-								</Link>
-							</div>
+					<div className="flex flex-col sm:flex-row flex-1 w-full items-center justify-between space-y-8 sm:space-y-0 py-32 px-24 md:px-32">
+						<Typography
+						component={motion.span}
+						initial={{ x: -20 }}
+						animate={{ x: 0, transition: { delay: 0.2 } }}
+						delay={300}
+						className="text-24 md:text-32 font-extrabold tracking-tight"
+						>
+							{companyName}
+						</Typography>
 						</div>
-					</div>
 				}
 				content={
-					<div>
+					<div className='p-12'>
 						<form noValidate onSubmit={handleSubmit(onSubmit)} className="flex flex-col md:overflow-hidden">
 							<div className="flex justify-between">
 								<Typography variant="h6">Selvskapinstilling</Typography>
@@ -344,9 +342,6 @@ function CompanyProfile(props) {
 						</form>
 					</div>
 				}
-				ref={pageLayout}
-				innerScroll
-				sidebarInner
 			/>
 			<StepDialog
 				isDialogOpen={isDialogOpen}

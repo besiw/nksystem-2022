@@ -4,7 +4,6 @@ import Table from '@mui/material/Table';
 import PropTypes from 'prop-types';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
@@ -99,11 +98,11 @@ const EnhancedTable = ({ columns, data, onRowClick }) => {
 							<TableRow {...headerGroup.getHeaderGroupProps()} className="h-48 sm:h-64">
 								{headerGroup.headers.map(column => (
 									<TableCell
-									padding="none" 
-									className="w-40 md:w-64 text-center z-99"
-										{...(!column.sortable
-											? column.getHeaderProps()
-											: column.getHeaderProps(column.getSortByToggleProps()))}
+										padding="none" 
+										className="w-40 md:w-64 text-center z-99"
+											{...(!column.sortable
+												? column.getHeaderProps()
+												: column.getHeaderProps(column.getSortByToggleProps()))}
 									>
 										{column.render('Header')}
 										{column.sortable ? (

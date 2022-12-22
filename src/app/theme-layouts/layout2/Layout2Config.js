@@ -4,7 +4,7 @@ const config = {
     mode: 'container',
     containerWidth: 1120,
     navbar: {
-      display: true,
+      display: false,
       style: 'fixed',
     },
     toolbar: {
@@ -17,7 +17,7 @@ const config = {
       style: 'fixed',
     },
     leftSidePanel: {
-      display: true,
+      display: false,
     },
     rightSidePanel: {
       display: true,

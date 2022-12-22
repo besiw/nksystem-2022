@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-const Logo: React.FC<{ customSize: string; className: string }> = ({ customSize, className }) => {
+const Logo = ({ customSize, className }) => {
     const size = customSize ? `${customSize}rem` : '24';
     return (
         <svg

@@ -1,8 +1,8 @@
 import FuseUtils from '@fuse/utils';
-import FuseLoading from '@fuse/core/FuseLoading';
+
 import { Navigate } from 'react-router-dom';
 import appStrings from 'app/strings';
-import ExampleConfig from 'app/main/example/ExampleConfig';
+
 import ProjectsAppConfig from '../../app/page/projects/ProjectsAppConfig';
 import settingsConfig from 'app/configs/settingsConfig';
 import ProjectAppConfig from '../../app/page/project/ProjectAppConfig';
@@ -14,8 +14,10 @@ import DocTypeAppConfig from 'app/page/docType/DocTypeAppConfig';
 import PartyTypeAppConfig from 'app/page/parties/PartiesAppConfig';
 import EmailTemplateAppConfig from 'app/page/emailTemplate/EmailTemplaterConfig';
 import TeamInfoConfig from 'app/page/teamInfo/teamInfoConfig';
+import ExternalPageConfig from 'app/page/external/UploadPageConfig.js'
+import AdminCompanyConfig from 'app/page/company/CompanyAppConfig.js'
 
-
+const isAdmin = process.env.REACT_APP_IS_ADMIN_PANEL;
 const routeConfigs = [
   ProjectsAppConfig,
   ProjectAppConfig,
@@ -26,10 +28,17 @@ const routeConfigs = [
 	PartyTypeAppConfig,
 	EmailTemplateAppConfig,
 	ServiceAppConfig,
-	TeamInfoConfig
+	TeamInfoConfig,
+  ExternalPageConfig
 ];
-console.log(routeConfigs)
-const routes = [
+
+const routes = isAdmin?[
+  ...FuseUtils.generateRoutesFromConfigs([AdminCompanyConfig], settingsConfig.defaultAuth),
+  {
+    path: '/',
+    element: <Navigate to={`/company`} />
+  },
+]:[
   ...FuseUtils.generateRoutesFromConfigs(routeConfigs, settingsConfig.defaultAuth),
   {
     path: '/',

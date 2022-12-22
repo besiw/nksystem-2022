@@ -1,34 +1,6 @@
 import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit';
-import axios from 'axios';
 import allRequests, { requestNBK } from 'api/allRequests';
-import appStrings from 'app/strings';
 
-/* const createGeneralCrudSlice = ({
-	name,
-	allRequest,
-	allRequestConvertor,
-	createRequest,
-	updateRequest,
-	getCreateData,
-	getUpdateData
-}) => {
-	
-	return {
-		thunkActions: {
-			getEntities,
-			addEntity,
-			updateEntity
-
-		},
-		selectors: {
-			[`selectAll${name}s`]: selectAll,
-			[`select${name}byId`]: selectById
-		},
-		slice: generalCrudSlice
-	};
-}; */
-
-const title = 'Company';
 const name = 'company';
 
 export const getEntities = createAsyncThunk(`${name}App/${name}/get${name}`, async () => {
@@ -126,26 +98,6 @@ const generalCrudSlice = createSlice({
 		}
 	}
 });
-/* const store = createGeneralCrudSlice({
-	name,
-	allRequest: allRequests.company.all,
-	allRequestConvertor: res => res.multiCompanyProfile,
-	createRequest: allRequests.company.create,
-	getCreateData: row => ({
-		companyProfile: {
-			title: row.title
-		}
-	}),
-	updateRequest: allRequests.company.update,
-	getUpdateData: row => ({
-		companyProfile: {
-			id: row.id,
-			title: row.title
-		}
-	})
-	/* 	deleteRequest: allRequests.buildingSupplier.delete,
-	getDeleteData: id => ({
-		BuildingSupplierID: id
-	}) */
+
 export const { setcompanySearchText } = generalCrudSlice.actions;
 export default generalCrudSlice.reducer;

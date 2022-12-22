@@ -1,36 +1,15 @@
-import FuseCountdown from '@fuse/core/FuseCountdown';
+
 import { motion } from 'framer-motion';
-import { Controller, useForm } from 'react-hook-form';
 import queryString from 'query-string';
-import { useState, lazy } from 'react';
-import { useDispatch } from 'react-redux';
-import { useDeepCompareEffect } from '@fuse/hooks';
-import { useParams, useLocation } from 'react-router-dom';
-import { useDropzone } from 'react-dropzone';
-import { yupResolver } from '@hookform/resolvers/yup';
-import Button from '@mui/material/Button';
+import { useLocation } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Divider from '@mui/material/Divider';
 import FuseSuspense from '@fuse/core/FuseSuspense';
-import { makeStyles } from '@mui/styles';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import FileChip from 'app/shared-components/MailAttachment';
-import clsx from 'clsx';
 import * as yup from 'yup';
 import _ from '@lodash';
-import allRequests, { requestNBK } from 'api/allRequests';
-import axios from 'axios';
 import NBKLogo from 'app/shared-components/Logo';
 import UploadPageConfig from 'app/page/external/UploadPageConfig';
-import { Route, Switch } from 'react-router';
-import { renderRoutes } from 'react-router-config';
-// /PartyDoc/UploadDocument?WorkflowId=1&ProjectId=3722&PartyID=3022&PartyTypeID=10&UrlKey=st4X3hXMCtf4lYbM
-
-const useStyles = makeStyles(theme => ({
-	root: {}
-}));
+import { useRoutes } from 'react-router-dom';
 
 /**
  * Form Validation Schema
@@ -56,7 +35,7 @@ function ExternalLayout() {
 					<Card className="w-tablet">
 						<CardContent className="flex flex-col items-center p-16 sm:p-32">
 							<NBKLogo customSize="24" />
-							<FuseSuspense>{renderRoutes(UploadPageConfig.routes)} </FuseSuspense>
+							<FuseSuspense>{useRoutes(UploadPageConfig.routes)} </FuseSuspense>
 						</CardContent>
 					</Card>
 				</motion.div>
