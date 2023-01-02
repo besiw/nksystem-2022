@@ -4,11 +4,7 @@ phases:
   install:
     commands:
       - n lts
-      - npm -v
-      - echo install yarn...
       - npm install -g yarn
-      - echo yarn -v
-      - yarn -v
       - echo Installing app dependencies...
       - yarn install
   build:
