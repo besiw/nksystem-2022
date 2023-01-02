@@ -4,9 +4,6 @@ phases:
   install:
     commands:
       - n lts
-      - echo node -v
-      - node -v
-      - echo npm -v
       - npm -v
       - echo install yarn...
       - npm install -g yarn
