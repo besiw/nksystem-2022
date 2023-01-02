@@ -1,0 +1,23 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - n lts
+      - echo Installing app dependencies...
+      - yarn install
+  build:
+    commands:
+      - n lts
+      - echo Building static site...
+      - yarn build
+  post_build:
+    commands:
+      - aws s3 sync build/ $S3_BUCKET_NAME
+      - cd ..
+      - ls
+
+
+cache:
+  paths:
+    - './node_modules/**/*'
