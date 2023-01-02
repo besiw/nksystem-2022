@@ -1,9 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import FuseUtils from '@fuse/utils';
 import allRequests, { requestNBK } from 'api/allRequests';
-import { getProjects } from 'app/page/projects/store/projectsSlice';
 import appStrings from 'app/strings';
-import { hideMessage, showMessage } from 'app/store/fuse/messageSlice';
+import { showMessage } from 'app/store/fuse/messageSlice';
 
 const initialProjectInfo = {
 	title: '',
@@ -27,13 +26,15 @@ const checklistOnly = {
 	9: true,
 	11: true,
 	12: true,
-	15: true
+	15: true,
 };
 
 const docsOnly = {
+	1: true,
 	7: true,
 	10: true
 };
+
 
 export const getProject = createAsyncThunk('projectApp/project/getProject', async (params, { dispatch, getState }) => {
 	const res = await requestNBK({ requestConfig: allRequests.project.get, body: params });
@@ -68,7 +69,7 @@ export const createProject = createAsyncThunk(
 		const { id, ...rest } = data;
 		const response = await requestNBK({ requestConfig: allRequests.project.create, body: { project: rest } }).then(
 			res => {
-				navigate(`/${appStrings.slug_project}/${res.project.id}`);
+				navigate(`/${appStrings.slug_project}/${res.project.id}/workplace`);//`/${appStrings.slug_project}/${projectId}/workplace`
 				return res;
 			}
 		);
@@ -104,10 +105,8 @@ export const getProjectWithWorkflow = createAsyncThunk(
 	async (params, { dispatch, getState }) => {
 		const projectWithWorkflow = await requestNBK({ requestConfig: allRequests.project.get, body: params }).then(
 			res => {
-				console.log(res);
 				const { project } = res;
 				if (project) {
-					console.log(project);
 					return getServiceWorkflow(project);
 				}
 				throw Error('cannot find project');
@@ -198,14 +197,25 @@ const processWorkflowStepAndHistory = ({ serviceInfo, allStepsList, projectCompl
 	const { service } = serviceInfo;
 	allStepsList.forEach(step => {
 		let show = false;
-		if (service.description === 'Kontroll') {
-			show = !!checklistOnly[step.id];
-		} else if (service.description === 'Innhenting av dokumentasjon') {
-			show = !!docsOnly[step.id];
-		} else {
-			show = true;
+		if (typeof service.description ==="string"){
+			const serviceTitle=service.description.toLowerCase()
+			const isKontroll = serviceTitle.includes("kontroll");
+			const isDoc = serviceTitle.includes("innhenting")
+			const isAlt = serviceTitle.includes("alt")
+			if(isKontroll|| isDoc){
+				if(isKontroll){
+					show = !!checklistOnly[step.id];
+				}
+				if(!show && isDoc){
+					show = !!docsOnly[step.id];
+				}
+				if(isAlt){
+					show = true;
+				}
+			} else {
+				show = true;
+			}
 		}
-
 		if (show) {
 			const path = `w${workflowCategoryId}s${step.id}`;
 			if (projectCompletedObject[step.stepSequence]) {

@@ -12,7 +12,7 @@ import Dialog from './serviceDialog';
 import ServiceSlice from './serviceAppSlice';
 
 const name = 'service';
-const title = 'Service';
+const title = 'Tjenester';
 const store = ServiceSlice;
 const { thunkActions, slice, selectors } = store;
 const { addEntity, getEntities, removeEntity, updateEntity, openEditDialog } = thunkActions;

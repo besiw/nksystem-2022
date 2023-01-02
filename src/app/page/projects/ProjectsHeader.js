@@ -29,7 +29,7 @@ function ProductsHeader(props) {
 			delay={300}
 			className="text-24 md:text-32 font-extrabold tracking-tight"
 			>
-				Products
+				Prosjekter
 			</Typography>
   
 			<div className="flex flex-col w-full sm:w-auto sm:flex-row space-y-16 sm:space-y-0 flex-1 items-center justify-end space-x-8">
@@ -42,13 +42,13 @@ function ProductsHeader(props) {
 					<FuseSvgIcon color="disabled">heroicons-solid:search</FuseSvgIcon>
 		
 					<Input
-					placeholder="Search products"
+					placeholder="Søk etter prosjekter"
 					className="flex flex-1"
 					disableUnderline
 					fullWidth
 					value={searchText}
 					inputProps={{
-						'aria-label': 'Search',
+						'aria-label': 'Søk',
 					}}
 					onChange={(ev) => dispatch(setProjectsSearchText(ev))}
 					/>

@@ -1,5 +1,7 @@
 import { ThemeProvider } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
+import Button from '@mui/material/Button';
+import {Link }from 'react-router-dom'
 import Hidden from '@mui/material/Hidden';
 import Toolbar from '@mui/material/Toolbar';
 import clsx from 'clsx';
@@ -8,14 +10,8 @@ import { useSelector } from 'react-redux';
 import { selectFuseCurrentLayoutConfig, selectToolbarTheme } from 'app/store/fuse/settingsSlice';
 import AdjustFontSize from '../../shared-components/AdjustFontSize';
 import FullScreenToggle from '../../shared-components/FullScreenToggle';
-import LanguageSwitcher from '../../shared-components/LanguageSwitcher';
-import NotificationPanelToggleButton from '../../shared-components/notificationPanel/NotificationPanelToggleButton';
-import NavigationShortcuts from '../../shared-components/NavigationShortcuts';
-import NavigationSearch from '../../shared-components/NavigationSearch';
 import NavbarToggleButton from '../../shared-components/NavbarToggleButton';
 import UserMenu from '../../shared-components/UserMenu';
-import QuickPanelToggleButton from '../../shared-components/quickPanel/QuickPanelToggleButton';
-import ChatPanelToggleButton from '../../shared-components/chatPanel/ChatPanelToggleButton';
 
 function ToolbarLayout2(props) {
   const config = useSelector(selectFuseCurrentLayoutConfig);
@@ -37,27 +33,17 @@ function ToolbarLayout2(props) {
           )}
 
           <div className="flex flex-1">
-            <Hidden lgDown>
-              <NavigationShortcuts />
-            </Hidden>
+          <Button variant="outlined" component={Link} to="/">
+            Alle selskaper
+          </Button> 
           </div>
 
           <div className="flex items-center px-8 h-full overflow-x-auto">
-            <LanguageSwitcher />
+
 
             <AdjustFontSize />
 
             <FullScreenToggle />
-
-            <NavigationSearch />
-
-            <Hidden lgUp>
-              <ChatPanelToggleButton />
-            </Hidden>
-
-            <QuickPanelToggleButton />
-
-            <NotificationPanelToggleButton />
 
             <UserMenu />
           </div>

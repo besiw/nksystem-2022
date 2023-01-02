@@ -1,6 +1,5 @@
 import Button from '@mui/material/Button';
 import Icon from '@mui/material/Icon';
-import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import { motion } from 'framer-motion';
 import { useFormContext } from 'react-hook-form';
@@ -18,14 +17,12 @@ function ProductHeader(props) {
 	const { projectId } = routeParams;
 	const { formState, watch, getValues } = methods;
 
-	const { isValid, dirtyFields } = formState;
 	const name = watch('title');
-	const theme = useTheme();
+	const description = watch('description');
 	const navigate = useNavigate()
 
 	function handleSaveProduct() {
 		const value = getValues();
-		console.log(value);
 		let errorMessage = '';
 		if (!value.projectService || value.projectService.length === 0) {
 			errorMessage += 'You must add a service. ';
@@ -41,7 +38,8 @@ function ProductHeader(props) {
 			'poststed',
 			'buildingSupplierId',
 			'contactPersonId',
-			'customerId'
+			'customerId',
+			'description'
 		];
 		keyArray.forEach(key => {
 			const isNumber = typeof value[key] === 'number' || value[key] === 'string';
@@ -67,7 +65,7 @@ function ProductHeader(props) {
 
 	function handleRemoveProduct() {
 		dispatch(removeProject(projectId)).then(() => {
-			navigate('/products');
+			navigate(`/${appStrings.slug_projects}`);
 		});
 	}
 
@@ -97,7 +95,7 @@ function ProductHeader(props) {
 								{projectId === 'new' ? 'New project' : name}
 							</Typography>
 							<Typography variant="caption" className="font-medium">
-								Project Detail
+								{description}
 							</Typography>
 						</motion.div>
 					</div>
@@ -115,7 +113,7 @@ function ProductHeader(props) {
 					onClick={handleRemoveProduct}
 					startIcon={<Icon className="hidden sm:flex">delete</Icon>}
 				>
-					Remove
+					Slett
 				</Button>
 				<Button
 					className="whitespace-nowrap mx-4"
@@ -124,7 +122,7 @@ function ProductHeader(props) {
 					/* disabled={_.isEmpty(dirtyFields) || !isValid} */
 					onClick={handleSaveProduct}
 				>
-					{projectId === 'new' ? 'Create' : 'Save'}
+					{projectId === 'new' ? 'Opprett' : 'Lagre'}
 				</Button>
 			</motion.div>
 		</div>

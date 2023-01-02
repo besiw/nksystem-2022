@@ -10,7 +10,8 @@ import List from 'app/main/apps/GeneralCrudAppCreator/List';
 import ChecklistAppSlice from './ChecklistAppSlice';
 import Dialog from './ChecklistDialog';
 
-const title = 'Checklist';
+
+const title = `${appStrings.checklist_template}`;
 const name = 'Checklist';
 
 const tableConfig = {

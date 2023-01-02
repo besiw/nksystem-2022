@@ -1,6 +1,8 @@
 import { ThemeProvider } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
+import Button from '@mui/material/Button';
 import Hidden from '@mui/material/Hidden';
+import {Link }from 'react-router-dom';
 import Toolbar from '@mui/material/Toolbar';
 import clsx from 'clsx';
 import { memo } from 'react';
@@ -61,6 +63,9 @@ function ToolbarLayout1(props) {
             <Hidden lgDown>
               <NavigationShortcuts />
             </Hidden>
+            <Button variant="outlined" component={Link} to="/">
+             Alle Prosjekter
+            </Button> 
           </div>
 
           <div className="flex items-center px-8 h-full overflow-x-auto">

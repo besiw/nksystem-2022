@@ -15,23 +15,9 @@ const WorkplaceHeader = ({ id, title, backToSteps, value, handleWorkflowChange, 
 	const backLink =
 	id === 'new' ? `/${appStrings.slug_projects}` : `/${appStrings.slug_project}/${id}/workplace`;
 	const backText = id === 'new' ? appStrings.projects : 'Dashboard';
-	console.log(backLink)
 	return (
 		<div className="flex flex-1 items-center justify-between p-8 sm:p-24 relative">
 			<div className="flex flex-col items-start max-w-full min-w-0">
-				<motion.div initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1, transition: { delay: 0.3 } }}>
-					<Typography
-						className="flex items-center sm:mb-12"
-						component={Link}
-						role="button"
-						to={backLink}
-						color="inherit"
-					>
-						<Icon className="text-20">arrow_back</Icon>
-						<span className="hidden sm:flex mx-4 font-medium">{backText}</span>
-					</Typography>
-				</motion.div>
-
 				<div className="flex items-center max-w-full">
 					<div className="flex flex-col min-w-0 mx-8 sm:mc-16">
 						<motion.div initial={{ x: -20 }} animate={{ x: 0, transition: { delay: 0.3 } }}>

@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useRef } from 'react';
 import withReducer from 'app/store/withReducer';
+import appStrings from 'app/strings';
 
 import {
 	selectAllContacts,
@@ -16,7 +17,7 @@ import List from 'app/main/apps/GeneralCrudAppCreator/List';
 import Dialog from 'app/main/apps/GeneralCrudAppCreator/Dialog';
 import ContactAppSlice from './ContactAppSlice';
 
-const title = 'Contacts';
+const title = `${appStrings.contacts}`;
 const name = 'contactPage';
 const { reducer } = ContactAppSlice;
 

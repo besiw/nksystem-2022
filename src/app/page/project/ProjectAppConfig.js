@@ -14,7 +14,11 @@ const ProjectAppConfig = {
 			element: <ProjectApp />
 		},
 		{
-			path: `/${slugs.slug_project}`,
+			path: `/${slugs.slug_project}/:projectId`,
+			element: <ProjectApp />
+		},
+		{
+			path: `/${slugs.slug_project}/*`,
 			element: <ProjectApp />
 		}
 	]

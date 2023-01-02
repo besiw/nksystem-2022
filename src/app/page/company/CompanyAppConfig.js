@@ -9,6 +9,10 @@ const CompanyAppConfig = {
 	},
 	routes: [
 		{
+			path: `/company/:companyId/*`,
+			element: <CompanyProfile />
+		},
+		{
 			path: `/company/:companyId`,
 			element: <CompanyProfile />
 		},

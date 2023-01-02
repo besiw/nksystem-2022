@@ -125,9 +125,9 @@ function Project(props) {
 							scrollButtons="auto"
 							classes={{ root: 'w-full h-64' }}
 						>
-							<Tab className="h-64" label="Contact Info" />
-							<Tab className="h-64" label="Project Info" />
-							<Tab className="h-64" label="Services" />
+							<Tab className="h-64" label="Kontaktinfo" />
+							<Tab className="h-64" label="Prosjektinfo" />
+							<Tab className="h-64" label="Tjenester" />
 						</Tabs>
 						<div className="p-16 sm:p-24">
 							<div className={tabValue !== 0 ? 'hidden' : ''}>

@@ -1,7 +1,3 @@
-import MenuItem from '@mui/material/MenuItem';
-import TextField from '@mui/material/TextField';
-import { Link, useParams } from 'react-router-dom';
-
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Icon from '@mui/material/Icon';
@@ -35,6 +31,7 @@ const Step = ({ projectId, workflow, updateprojectState, handleStepChange, selec
 	}
 
 	const displaySteps = tabValue === 0 ? workflow.toDoSteps : workflow.processedSteps;
+	console.log(displaySteps)
 	const handleTransfer = ({ step, key }) => {
 		transferRequests({ projectId, key, stepId: step.stepSequence, selectedWorkflowId }).then(res => {
 			updateprojectState();
@@ -54,11 +51,11 @@ const Step = ({ projectId, workflow, updateprojectState, handleStepChange, selec
 				>
 					{[
 						{
-							label: 'To do',
+							label: 'Å gjøre',
 							value: 0
 						},
 						{
-							label: 'Done',
+							label: 'Ferdig',
 							value: 1
 						}
 					].map(item => {
