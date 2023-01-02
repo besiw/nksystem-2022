@@ -4,7 +4,6 @@ phases:
   install:
     commands:
       - n lts
-      - npm update -g npm
       - echo node -v
       - node -v
       - echo npm -v
