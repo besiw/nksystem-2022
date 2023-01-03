@@ -4,14 +4,14 @@ phases:
   install:
     commands:
       - n lts
-      - npm install -g yarn
+      - 'npm install -g yarn'
       - echo Installing app dependencies...
-      - yarn install
+      - 'yarn install'
   build:
     commands:
       - n lts
       - echo Building static site...
-      - yarn build
+      - 'yarn build'
   post_build:
     commands:
       - aws s3 sync build/ $S3_BUCKET_NAME
